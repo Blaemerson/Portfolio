@@ -6,9 +6,9 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const {data} = api.posts.getAll.useQuery();
 
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
 
   return (
     <>
@@ -19,10 +19,10 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-white">
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-          </p>
           <AuthShowcase />
+          <div className="text-white text-xl">
+            {data?.map((post) => (<div key={post.id}>{post.content}</div>))}
+          </div>
         </div>
       </main>
     </>

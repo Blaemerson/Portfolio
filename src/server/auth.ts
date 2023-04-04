@@ -53,7 +53,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.GITHUB_CLIENT_SECRET,
       authorization: {
         params: {
-          redirect_uri: env.NEXTAUTH_URL
+          redirect_uri: env.NEXTAUTH_URL,
         }
       }
     }),
