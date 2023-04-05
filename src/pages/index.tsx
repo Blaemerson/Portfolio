@@ -2,17 +2,19 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-import { api } from "~/utils/api";
+import { RouterOutputs, api } from "~/utils/api";
 
 const CreatePostWizard = () => {
   const user = useSession().data?.user
 
   if (!user) return null;
 
+  console.log(user)
+
   return (
     <div className="flex">
       <img src={user.image!} alt="Profile Image" className="w-16 h-16 m-4 rounded-full" />
-      <input placeholder="Type something!" className="w-full outline-none bg-white text-xl text-slate-800 m-4 p-4 rounded-lg" />
+      <input placeholder="Type something!" className="grow outline-none bg-white text-xl text-slate-800 m-4 p-4 rounded-lg" />
     </div>
   )
 }
@@ -20,12 +22,25 @@ const CreatePostWizard = () => {
 type TextPostProps = {
   childComp: React.ReactNode;
 }
-const TextPost: React.FC<TextPostProps> = (children) => {
-  const {childComp} = children;
+
+type PostWithUser = RouterOutputs["posts"]["getAll"][number];
+
+const TextPost = (props: PostWithUser) => {
+  const {post, author} = props;
   return (
-    <p className="bg-white font-serif text-xl rounded-md text-slate-700 p-2 m-2">
-      {childComp}
-    </p>
+    <div className="flex gap-2 items-center bg-white font-serif text-xl rounded-md text-slate-700 m-4">
+      <img className="w-16 h-16 m-4 rounded-full" src={author.profilePicture}/>
+      <div className="flex flex-col mb-4">
+        <div className="flex">
+          <span className="italic text-slate-500">
+            {author.name}
+          </span>
+        </div>
+        <span>
+          {post.content}
+        </span>
+      </div>
+    </div>
   );
 }
 
@@ -49,7 +64,7 @@ const Home: NextPage = () => {
             <AuthShowcase />
           </div>
           <CreatePostWizard />
-          {[...data].map((post) => (<TextPost key={post.id} childComp=<div>{post.content}</div>></TextPost>))}
+          {[...data].map((fullPost) => (<TextPost key={fullPost.post.id} {...fullPost}/>))}
         </div>
       </main>
     </>

@@ -13,7 +13,7 @@ datasource db {
 
 model Post {
     id        String   @id @default(cuid())
-    author    String   @db.VarChar(255)
+    author_id String   @db.VarChar(255)
     createdAt DateTime @default(now())
     content   String   @db.Text
     updatedAt DateTime @updatedAt
