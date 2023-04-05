@@ -11,8 +11,8 @@ const CreatePostWizard = () => {
 
   return (
     <div className="flex">
-      <img src={user.image!} alt="Profile Image" className="w-24 h-24 rounded-full" />
-      <input placeholder="Type something!" className="outline-none bg-white text-xl rounded-lg" />
+      <img src={user.image!} alt="Profile Image" className="w-16 h-16 m-4 rounded-full" />
+      <input placeholder="Type something!" className="w-full outline-none bg-white text-xl text-slate-800 m-4 p-4 rounded-lg" />
     </div>
   )
 }
@@ -36,9 +36,6 @@ const Home: NextPage = () => {
 
   if (!data) return <div className="flex justify-center p-10 text-2xl text-red-500">Something went wrong...</div>
 
-  console.log(data)
-
-
   return (
     <>
       <Head>
@@ -48,8 +45,10 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex h-screen justify-center">
         <div className="h-full w-full border-x md:max-w-2xl">
-          <AuthShowcase />
-          // <CreatePostWizard />
+          <div className="">
+            <AuthShowcase />
+          </div>
+          <CreatePostWizard />
           {[...data].map((post) => (<TextPost key={post.id} childComp=<div>{post.content}</div>></TextPost>))}
         </div>
       </main>
@@ -63,16 +62,20 @@ const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
 
   return (
-    <div className="flex flex-col items-end justify-center">
-      <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-      </p>
-      <button
-        className="rounded-full bg-black/30 px-10 py-3 font-semibold text-white no-underline transition hover:bg-black/10 hover:text-gray-500"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
+    <>
+      <div className="flex justify-center">
+        <p className="text-center mt-2 text-2xl text-white">
+          {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
+        </p>
+      </div>
+      <div className="flex flex-col items-center">
+        <button
+          className="rounded-full bg-white/20 my-2 px-10 py-4 font-semibold text-white no-underline transition hover:bg-black/10 hover:text-gray-500"
+          onClick={sessionData ? () => void signOut() : () => void signIn()}
+        >
+          {sessionData ? "Sign out" : "Sign in"}
+        </button>
+      </div>
+    </>
   );
 };
