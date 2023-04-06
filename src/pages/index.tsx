@@ -9,8 +9,9 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime"
 dayjs.extend(relativeTime)
 
-import { LoadingPage } from "~/components/loading";
+import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const CreatePostWizard = () => {
   const user = useSession().data?.user
@@ -23,6 +24,14 @@ const CreatePostWizard = () => {
     onSuccess: () => {
       setInput("");
       void ctx.posts.getAll.invalidate();
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content
+      if (errorMessage && errorMessage[0]) {
+        toast.error(errorMessage[0])
+      } else {
+        toast.error("Failed to post. Please try again later.")
+      }
     }
   });
 
@@ -31,16 +40,27 @@ const CreatePostWizard = () => {
   console.log(user)
 
   return (
-    <div className="flex">
-      <img src={user.image!} alt="Profile Image" className="w-16 h-16 m-4 rounded-full" />
+    <div className="flex mx-4">
+      <img src={user.image!} alt="Profile Image" className="w-16 h-16 mr-3 rounded-md" />
       <input 
         placeholder="Type something!"
-        className="grow outline-none bg-white text-xl text-slate-800 m-4 p-4 rounded-lg"
+        className="grow outline-none bg-white text-xl text-slate-800 px-2 rounded-lg disabled:bg-slate-300"
         value={input}
         type="text"
         disabled={isPosting}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            if (input !== "") {
+              mutate({content: input});
+            }
+          }
+        }}
         onChange={(e) => setInput(e.target.value)}/>
-        <button onClick={() => mutate({ content: input })}>Post</button>
+      {input !== "" && !isPosting && (
+        <button className="w-24 rounded-md bg-gradient-to-b ml-3 from-slate-400 to-slate-500 text-xl hover:from-slate-300 hover:to-slate-400" onClick={() => mutate({ content: input })}>Post</button>
+      )}
+      {isPosting && <div className="flex justify-center items-center"><LoadingSpinner size={40}/></div>}
     </div>
   )
 }
@@ -51,13 +71,13 @@ const TextPost = (props: PostWithUser) => {
   const {post, author} = props;
   return (
     <div className="flex gap-2 items-center bg-white font-serif text-xl rounded-md text-slate-700 m-4">
-      <img className="w-16 h-16 m-4 rounded-full" src={author.profilePicture}/>
-      <div className="flex flex-col mb-4">
+      <img className="w-16 h-16 m-2 rounded-md" src={author.profilePicture}/>
+      <div className="flex flex-col my-2">
         <div className="flex">
           <span className="italic text-slate-500">{`${author.name!}`}</span>
           <span className="italic text-slate-400 whitespace-pre-wrap">{` - ${dayjs(post.createdAt).fromNow()}`}</span>
         </div>
-        <span>
+        <span className="flex">
           {post.content}
         </span>
       </div>
@@ -94,10 +114,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex h-screen justify-center">
-        <div className="h-full w-full border-x md:max-w-2xl">
-          <div className="">
-            <AuthShowcase />
-          </div>
+        <div className="w-full h-screen pt-2 md:max-w-3xl">
+          <AuthShowcase />
           <CreatePostWizard />
           <Feed />
         </div>
@@ -114,13 +132,13 @@ const AuthShowcase: React.FC = () => {
   return (
     <>
       <div className="flex justify-center">
-        <p className="text-center mt-2 text-2xl text-white">
+        <p className="text-center text-2xl text-white">
           {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
         </p>
       </div>
       <div className="flex flex-col items-center">
         <button
-          className="rounded-full bg-white/20 my-2 px-10 py-4 font-semibold text-white no-underline transition hover:bg-black/10 hover:text-gray-500"
+          className="w-36 h-12 mt-2 mb-4 rounded-full bg-gradient-to-b from-slate-400 to-slate-500 text-xl hover:from-slate-300 hover:to-slate-400"
           onClick={sessionData ? () => void signOut() : () => void signIn()}
         >
           {sessionData ? "Sign out" : "Sign in"}
