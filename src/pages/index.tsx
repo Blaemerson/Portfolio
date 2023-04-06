@@ -10,9 +10,21 @@ import relativeTime from "dayjs/plugin/relativeTime"
 dayjs.extend(relativeTime)
 
 import { LoadingPage } from "~/components/loading";
+import { useState } from "react";
 
 const CreatePostWizard = () => {
   const user = useSession().data?.user
+
+  const [input, setInput] = useState("");
+
+  const ctx = api.useContext();
+
+  const {mutate, isLoading: isPosting } = api.posts.create.useMutation({
+    onSuccess: () => {
+      setInput("");
+      void ctx.posts.getAll.invalidate();
+    }
+  });
 
   if (!user) return null;
 
@@ -21,7 +33,14 @@ const CreatePostWizard = () => {
   return (
     <div className="flex">
       <img src={user.image!} alt="Profile Image" className="w-16 h-16 m-4 rounded-full" />
-      <input placeholder="Type something!" className="grow outline-none bg-white text-xl text-slate-800 m-4 p-4 rounded-lg" />
+      <input 
+        placeholder="Type something!"
+        className="grow outline-none bg-white text-xl text-slate-800 m-4 p-4 rounded-lg"
+        value={input}
+        type="text"
+        disabled={isPosting}
+        onChange={(e) => setInput(e.target.value)}/>
+        <button onClick={() => mutate({ content: input })}>Post</button>
     </div>
   )
 }
@@ -35,7 +54,7 @@ const TextPost = (props: PostWithUser) => {
       <img className="w-16 h-16 m-4 rounded-full" src={author.profilePicture}/>
       <div className="flex flex-col mb-4">
         <div className="flex">
-          <span className="italic text-slate-500">{`${author.name}`}</span>
+          <span className="italic text-slate-500">{`${author.name!}`}</span>
           <span className="italic text-slate-400 whitespace-pre-wrap">{` - ${dayjs(post.createdAt).fromNow()}`}</span>
         </div>
         <span>
@@ -58,7 +77,6 @@ const Feed = () => {
       {[...data].map((fullPost) => (<TextPost key={fullPost.post.id} {...fullPost}/>))}
     </div>
   );
-
 }
 
 const Home: NextPage = () => {
