@@ -5,6 +5,7 @@ import { z } from "zod";
 import {
   createTRPCRouter,
   publicProcedure,
+  protectedProcedure,
 } from "~/server/api/trpc";
 
 const filterUserForClient = (user: User) => {
@@ -15,6 +16,7 @@ export const postsRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
     const posts = await ctx.prisma.post.findMany({
       take: 100,
+      orderBy: [{createdAt: "desc"}],
     });
     const users = (await ctx.prisma.user.findMany({take: 100}).then((users) => users.map(filterUserForClient)))
 
@@ -24,9 +26,26 @@ export const postsRouter = createTRPCRouter({
       return {
         post,
         author,
-      }
-    })
+      };
+    });
+  }),
 
-    // return posts;
+  create: protectedProcedure
+    .input(
+      z.object({
+        content: z.string().min(1).max(2000)
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const authorId = ctx.session.user.id;
+
+      const post = await ctx.prisma.post.create({
+        data: {
+          author_id: authorId,
+          content: input.content,
+        }
+      })
+
+      return post;
   }),
 });
