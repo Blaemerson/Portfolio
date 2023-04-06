@@ -12,6 +12,7 @@ dayjs.extend(relativeTime)
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import Link from "next/link";
 
 const CreatePostWizard = () => {
   const user = useSession().data?.user
@@ -70,16 +71,22 @@ type PostWithUser = RouterOutputs["posts"]["getAll"][number];
 const TextPost = (props: PostWithUser) => {
   const {post, author} = props;
   return (
-    <div className="flex gap-2 items-center bg-white font-serif text-xl rounded-md text-slate-700 m-4">
+    <div key={post.id} className="flex gap-2 items-center bg-white font-serif text-xl rounded-md text-slate-700 m-4">
       <img className="w-16 h-16 m-2 rounded-md" src={author.profilePicture}/>
       <div className="flex flex-col my-2">
         <div className="flex">
-          <span className="italic text-slate-500">{`${author.name!}`}</span>
-          <span className="italic text-slate-400 whitespace-pre-wrap">{` - ${dayjs(post.createdAt).fromNow()}`}</span>
+          <Link href={`/@${author.name}`}>
+            <span className="italic text-slate-500">{`${author.name!}`}</span>
+          </Link>
+          <Link href={`/post/${post.id}`}>
+            <span className="italic text-slate-400 whitespace-pre-wrap">{` - ${dayjs(post.createdAt).fromNow()}`}</span>
+          </Link>
         </div>
-        <span className="flex">
-          {post.content}
-        </span>
+        <Link href={`/post/${post.id}`}>
+          <span className="flex">
+            {post.content}
+          </span>
+        </Link>
       </div>
     </div>
   );
