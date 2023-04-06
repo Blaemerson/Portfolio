@@ -9,6 +9,8 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime"
 dayjs.extend(relativeTime)
 
+import { LoadingPage } from "~/components/loading";
+
 const CreatePostWizard = () => {
   const user = useSession().data?.user
 
@@ -22,10 +24,6 @@ const CreatePostWizard = () => {
       <input placeholder="Type something!" className="grow outline-none bg-white text-xl text-slate-800 m-4 p-4 rounded-lg" />
     </div>
   )
-}
-
-type TextPostProps = {
-  childComp: React.ReactNode;
 }
 
 type PostWithUser = RouterOutputs["posts"]["getAll"][number];
@@ -48,12 +46,27 @@ const TextPost = (props: PostWithUser) => {
   );
 }
 
-const Home: NextPage = () => {
-  const {data, isLoading} = api.posts.getAll.useQuery();
+const Feed = () => {
+  const {data, isLoading: postsLoading} = api.posts.getAll.useQuery();
 
-  if (isLoading) return <div className="flex justify-center p-10 text-2xl">Loading...</div>
+  if (postsLoading) return <LoadingPage />
 
   if (!data) return <div className="flex justify-center p-10 text-2xl text-red-500">Something went wrong...</div>
+
+  return (
+    <div>
+      {[...data].map((fullPost) => (<TextPost key={fullPost.post.id} {...fullPost}/>))}
+    </div>
+  );
+
+}
+
+const Home: NextPage = () => {
+  api.posts.getAll.useQuery();
+
+  // if (postsLoading) return <LoadingPage />
+
+  // if (!data) return <div className="flex justify-center p-10 text-2xl text-red-500">Something went wrong...</div>
 
   return (
     <>
@@ -68,7 +81,7 @@ const Home: NextPage = () => {
             <AuthShowcase />
           </div>
           <CreatePostWizard />
-          {[...data].map((fullPost) => (<TextPost key={fullPost.post.id} {...fullPost}/>))}
+          <Feed />
         </div>
       </main>
     </>
