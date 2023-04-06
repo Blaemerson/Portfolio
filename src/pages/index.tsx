@@ -2,7 +2,12 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-import { RouterOutputs, api } from "~/utils/api";
+import { api } from "~/utils/api";
+import type {RouterOutputs} from "~/utils/api";
+
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime"
+dayjs.extend(relativeTime)
 
 const CreatePostWizard = () => {
   const user = useSession().data?.user
@@ -32,9 +37,8 @@ const TextPost = (props: PostWithUser) => {
       <img className="w-16 h-16 m-4 rounded-full" src={author.profilePicture}/>
       <div className="flex flex-col mb-4">
         <div className="flex">
-          <span className="italic text-slate-500">
-            {author.name}
-          </span>
+          <span className="italic text-slate-500">{`${author.name}`}</span>
+          <span className="italic text-slate-400 whitespace-pre-wrap">{` - ${dayjs(post.createdAt).fromNow()}`}</span>
         </div>
         <span>
           {post.content}
