@@ -3,49 +3,54 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
-import type {RouterOutputs} from "~/utils/api";
+import type { RouterOutputs } from "~/utils/api";
 
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime"
-dayjs.extend(relativeTime)
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
+import { SideBar } from "~/components/sidebar";
 
 const CreatePostWizard = () => {
-  const user = useSession().data?.user
+  const user = useSession().data?.user;
 
   const [input, setInput] = useState("");
 
   const ctx = api.useContext();
 
-  const {mutate, isLoading: isPosting } = api.posts.create.useMutation({
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
     onSuccess: () => {
       setInput("");
       void ctx.posts.getAll.invalidate();
     },
     onError: (e) => {
-      const errorMessage = e.data?.zodError?.fieldErrors.content
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
       if (errorMessage && errorMessage[0]) {
-        toast.error(errorMessage[0])
+        toast.error(errorMessage[0]);
       } else {
-        toast.error("Failed to post. Please try again later.")
+        toast.error("Failed to post. Please try again later.");
       }
-    }
+    },
   });
 
   if (!user) return null;
 
-  console.log(user)
+  console.log(user);
 
   return (
-    <div className="flex mx-4">
-      <img src={user.image!} alt="Profile Image" className="w-16 h-16 mr-3 rounded-md" />
-      <input 
+    <div className="mx-4 flex">
+      <img
+        src={user.image!}
+        alt="Profile Image"
+        className="mr-3 h-16 w-16 rounded-md "
+      />
+      <input
         placeholder="Type something!"
-        className="grow outline-none bg-white text-xl text-slate-800 px-2 rounded-lg disabled:bg-slate-300"
+        className="grow rounded-lg bg-white px-2 text-xl text-slate-800 outline-none disabled:bg-slate-300"
         value={input}
         type="text"
         disabled={isPosting}
@@ -53,78 +58,99 @@ const CreatePostWizard = () => {
           if (e.key === "Enter") {
             e.preventDefault();
             if (input !== "") {
-              mutate({content: input});
+              mutate({ content: input });
             }
           }
         }}
-        onChange={(e) => setInput(e.target.value)}/>
+        onChange={(e) => setInput(e.target.value)}
+      />
       {input !== "" && !isPosting && (
-        <button className="w-24 rounded-md bg-gradient-to-b ml-3 from-slate-400 to-slate-500 text-xl hover:from-slate-300 hover:to-slate-400" onClick={() => mutate({ content: input })}>Post</button>
+        <button
+          className="ml-3 w-24 rounded-md bg-gradient-to-b from-slate-400 to-slate-500 text-xl hover:from-slate-300 hover:to-slate-400"
+          onClick={() => mutate({ content: input })}
+        >
+          Post
+        </button>
       )}
-      {isPosting && <div className="flex justify-center items-center"><LoadingSpinner size={40}/></div>}
+      {isPosting && (
+        <div className="flex items-center justify-center">
+          <LoadingSpinner size={40} />
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
 type PostWithUser = RouterOutputs["posts"]["getAll"][number];
 
 const TextPost = (props: PostWithUser) => {
-  const {post, author} = props;
+  const { post, author } = props;
   return (
-    <div key={post.id} className="flex gap-2 items-center bg-white font-serif text-xl rounded-md text-slate-700 m-4">
-      <img className="w-16 h-16 m-2 rounded-md" src={author.profilePicture}/>
-      <div className="flex flex-col my-2">
+    <div
+      key={post.id}
+      className="m-4 flex items-center gap-2 rounded-md bg-white font-serif text-xl text-slate-700"
+    >
+      <img className="m-2 h-16 w-16 rounded-md " src={author.profilePicture!} />
+      <div className="my-2 flex flex-col">
         <div className="flex">
           <Link href={`/@${author.name}`}>
             <span className="italic text-slate-500">{`${author.name!}`}</span>
           </Link>
           <Link href={`/post/${post.id}`}>
-            <span className="italic text-slate-400 whitespace-pre-wrap">{` - ${dayjs(post.createdAt).fromNow()}`}</span>
+            <span className="whitespace-pre-wrap italic text-slate-400">{` - ${dayjs(
+              post.createdAt
+            ).fromNow()}`}</span>
           </Link>
         </div>
         <Link href={`/post/${post.id}`}>
-          <span className="flex">
-            {post.content}
-          </span>
+          <span className="flex">{post.content}</span>
         </Link>
       </div>
     </div>
   );
-}
+};
 
 const Feed = () => {
-  const {data, isLoading: postsLoading} = api.posts.getAll.useQuery();
+  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
 
-  if (postsLoading) return <LoadingPage />
+  if (postsLoading) return <LoadingPage />;
 
-  if (!data) return <div className="flex justify-center p-10 text-2xl text-red-500">Something went wrong...</div>
+  if (!data)
+    return (
+      <div className="flex justify-center p-10 text-2xl text-red-500">
+        Something went wrong...
+      </div>
+    );
 
   return (
     <div>
-      {[...data].map((fullPost) => (<TextPost key={fullPost.post.id} {...fullPost}/>))}
+      {[...data].map((fullPost) => (
+        <TextPost key={fullPost.post.id} {...fullPost} />
+      ))}
     </div>
   );
-}
+};
 
 const Home: NextPage = () => {
   api.posts.getAll.useQuery();
 
-  // if (postsLoading) return <LoadingPage />
-
-  // if (!data) return <div className="flex justify-center p-10 text-2xl text-red-500">Something went wrong...</div>
-
   return (
     <>
       <Head>
-        <title>Create T3 App</title>
+        <title>Blake Savage</title>
         <meta name="description" content="Generated by create-t3-app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex h-screen justify-center">
-        <div className="w-full h-screen pt-2 md:max-w-3xl">
-          <AuthShowcase />
-          <CreatePostWizard />
-          <Feed />
+      <main>
+        <div>
+          <SideBar />
+        </div>
+        <div className="flex h-screen justify-center">
+          <div className="h-screen w-full pt-2 md:max-w-3xl">
+            <AuthShowcase />
+            <CreatePostWizard />
+            <Feed />
+          </div>
         </div>
       </main>
     </>
@@ -145,7 +171,7 @@ const AuthShowcase: React.FC = () => {
       </div>
       <div className="flex flex-col items-center">
         <button
-          className="w-36 h-12 mt-2 mb-4 rounded-full bg-gradient-to-b from-slate-400 to-slate-500 text-xl hover:from-slate-300 hover:to-slate-400"
+          className="mb-4 mt-2 h-12 w-36 rounded-full bg-gradient-to-b from-slate-400 to-slate-500 text-xl hover:from-slate-300 hover:to-slate-400"
           onClick={sessionData ? () => void signOut() : () => void signIn()}
         >
           {sessionData ? "Sign out" : "Sign in"}
