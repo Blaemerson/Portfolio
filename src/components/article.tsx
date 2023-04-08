@@ -12,7 +12,7 @@ export const Article = (props: { path: string }) => {
   useEffect(() => {
     void fetch(props.path)
       .then((res) => res.text())
-      .then((text) => setArticleText(text))
+      .then((text) => setArticleText(text));
   });
 
   // const [input, setInput] = useState("");
@@ -43,10 +43,18 @@ export const Article = (props: { path: string }) => {
   // />
 
   return (
-    <div className="m-4 flex items-center gap-2 rounded-sm bg-white">
-      <div className="m-16 flex">
-        {articleText == "" ? <LoadingPage /> : <ReactMarkdown className="prose text-black text-xl">{articleText}</ReactMarkdown>}
-      </div>
-    </div>
+    <>
+      {articleText == "" ? (
+        <LoadingPage />
+      ) : (
+        <div className="m-4 flex items-center gap-2 rounded-sm bg-white">
+          <div className="m-16 flex">
+            <ReactMarkdown className="prose text-xl text-gray-800">
+              {articleText}
+            </ReactMarkdown>
+          </div>
+        </div>
+      )}
+    </>
   );
 };

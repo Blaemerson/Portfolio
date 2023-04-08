@@ -5,9 +5,9 @@ import { api } from "~/utils/api";
 
 import { SideBar } from "~/components/sidebar";
 import { Article } from "~/components/article";
+import Link from "next/link";
 
 const Home: NextPage = () => {
-
   return (
     <>
       <Head>
@@ -16,13 +16,21 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div>
-          <SideBar />
-        </div>
-        <div className="flex h-screen justify-center">
-          <div className="h-screen w-full pt-2 md:max-w-4xl">
-            <Article path="articles/about.md"/>
+        <div className="flex h-screen w-full">
+          <div className="me-80">
+            <SideBar />
           </div>
+            <div className="h-screen w-full pt-2 md:max-w-4xl">
+              <Article path="articles/about.md" />
+              <div className="flex justify-end">
+                <Link
+                  href={`/contact`}
+                  className="mb-6 me-4 mt-4 flex h-16 w-48 items-center justify-center rounded-full bg-gradient-to-b from-indigo-200 to-indigo-300 p-2 text-xl font-bold text-gray-900 hover:from-indigo-100 hover:to-indigo-200 dark:text-white dark:hover:bg-gray-700"
+                >
+                  Contact
+                </Link>
+              </div>
+            </div>
         </div>
       </main>
     </>
