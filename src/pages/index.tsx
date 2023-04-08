@@ -93,7 +93,7 @@ const TextPost = (props: PostWithUser) => {
       <img className="m-2 h-16 w-16 rounded-md " src={author.profilePicture!} />
       <div className="my-2 flex flex-col">
         <div className="flex">
-          <Link href={`/@${author.name}`}>
+          <Link href={`/about`}>
             <span className="italic text-slate-500">{`${author.name!}`}</span>
           </Link>
           <Link href={`/post/${post.id}`}>

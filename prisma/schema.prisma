@@ -19,6 +19,14 @@ model Post {
     updatedAt DateTime @updatedAt
 }
 
+model Article {
+    id        String   @id @default(cuid())
+    title     String   @db.VarChar(255)
+    author_id String   @db.VarChar(255)
+    createdAt DateTime @default(now())
+    content   String   @db.Text
+}
+
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())

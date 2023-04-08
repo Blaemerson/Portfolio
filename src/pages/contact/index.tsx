@@ -20,8 +20,8 @@ const Home: NextPage = () => {
           <SideBar />
         </div>
         <div className="flex h-screen justify-center">
-          <div className="h-screen w-full pt-2 md:max-w-4xl">
-            <Article path="articles/about.md"/>
+          <div className="h-screen w-full pt-2 md:max-w-3xl">
+            <Article path="articles/contact.md"/>
           </div>
         </div>
       </main>
