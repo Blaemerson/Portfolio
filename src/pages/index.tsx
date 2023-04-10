@@ -146,7 +146,8 @@ const Home: NextPage = () => {
           <SideBar />
         </div>
         <div className="flex h-screen">
-          <div className="h-screen w-full py-8 md:max-w-5xl">
+          <div className="h-screen w-full pt-2 md:max-w-5xl">
+            <h1 className="ms-4 mb-4">Blog</h1>
             <CreatePostWizard />
             <Feed />
           </div>
@@ -154,29 +155,6 @@ const Home: NextPage = () => {
       </main>
     </>
   );
-            // <AuthShowcase />
 };
 
 export default Home;
-
-// const AuthShowcase: React.FC = () => {
-//   const { data: sessionData } = useSession();
-//
-//   return (
-//     <>
-//       <div className="flex justify-center">
-//         <p className="text-center text-2xl text-white">
-//           {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-//         </p>
-//       </div>
-//       <div className="flex flex-col items-center">
-//         <button
-//           className="mb-4 mt-2 h-12 w-36 rounded-full bg-gradient-to-b from-slate-400 to-slate-500 text-xl hover:from-slate-300 hover:to-slate-400"
-//           onClick={sessionData ? () => void signOut() : () => void signIn()}
-//         >
-//           {sessionData ? "Sign out" : "Sign in"}
-//         </button>
-//       </div>
-//     </>
-//   );
-// };

@@ -6,6 +6,7 @@ import { api } from "~/utils/api";
 import { SideBar } from "~/components/sidebar";
 import { Article } from "~/components/article";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
 
 const Home: NextPage = () => {
   return (
@@ -20,17 +21,68 @@ const Home: NextPage = () => {
           <div className="me-80">
             <SideBar />
           </div>
-            <div className="h-screen w-full pt-2 md:max-w-4xl">
-              <Article path="articles/about.md" />
-              <div className="flex justify-end">
-                <Link
-                  href={`/contact`}
-                  className="mb-6 me-4 mt-4 flex h-16 w-48 items-center justify-center rounded-full bg-gradient-to-b from-indigo-200 to-indigo-300 p-2 text-xl font-bold text-gray-900 hover:from-indigo-100 hover:to-indigo-200 dark:text-white dark:hover:bg-gray-700"
-                >
-                  Contact
-                </Link>
+          <div className="h-screen w-full pt-2 md:max-w-4xl">
+            <h1 className="ms-4">About Me</h1>
+            <div className="m-4 flex items-center gap-2">
+              <div>
+                <h3>Who I Am</h3>
+
+                <div className="p-2" />
+                <p className="text-slate-800 text-lg">I&apos;m a programmer!</p>
+
+                <div className="p-2" />
+                <p className="text-slate-800 text-lg">
+                  When I&apos;m not programming, I enjoy the outdoors, literature, and exploring new
+                  technologies.
+                </p>
+
+                <div className="p-2" />
+                <h3>What I Do</h3>
+                <div className="p-2" />
+                <p className="text-slate-800 text-lg">
+                  As a Software Engineer, I seek to build and maintain complex, multi-faceted applications. 
+                  In addition to my experience as a software developer and engineer, my peers know me for 
+                  facing new challenges with enthusiasm and a strong commitment to learn.
+                </p>
+
+                <div className="p-2" />
+                <p className="text-slate-800 text-lg">
+                  At any given time, I may be working on a number of side projects (this site is one of them!) 
+                </p>
+
+                <div className="p-2" />
+                <h3>What I Know</h3>
+
+                <div className="p-2" />
+                <p className="text-slate-800 text-lg">
+                  The following is a list of technologies I consider myself proficient in:
+                </p>
+
+                <div className="p-2" />
+                <ul className="px-6 list-disc text-slate-800 text-lg">
+                  <li>
+                    Java: I developed several applications using Java
+                  </li>
+                  <div className="p-2" />
+                  <li>
+                    Typescript + ReactJS: The tools I used to make this website! In addition to
+                    these major tools, I also used NextJS, TRPC, and Prisma to get things up and running.
+                    See the project&apos;s<a className="text-blue-500" href="https://github.com/Blaemerson/Portfolio"> Github page </a>
+                    to learn more.
+                  </li>
+                </ul>
+
               </div>
             </div>
+            <div className="flex justify-end">
+              <Link
+                href={`/contact`}
+                className="mb-6 me-4 mt-4 flex h-16 w-48 items-center justify-center rounded-full bg-gradient-to-b from-indigo-200 to-indigo-300 p-2 text-xl font-bold text-gray-900 hover:from-indigo-100 hover:to-indigo-200 dark:text-white dark:hover:bg-gray-700"
+              >
+                Contact
+              </Link>
+            </div>
+          </div>
         </div>
       </main>
     </>

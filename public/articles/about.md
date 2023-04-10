@@ -24,4 +24,4 @@ The following is a list of technologies I consider myself proficient in:
   relationship with the language (mostly love though <3)
 * **Typescript** + **ReactJS**: The tools I used to make this website! In addition to
   these major tools, I also used NextJS, TRPC, and Prisma to get things up and running.
-  See the projects **Github page** to learn more.
+  See the project's [*Github page*](https://github.com/Blaemerson/Portfolio) to learn more.

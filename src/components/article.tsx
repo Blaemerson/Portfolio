@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { api } from "~/utils/api";
-import { toast } from "react-hot-toast";
-import { Buffer } from "buffer";
 import { LoadingPage } from "./loading";
 
 export const Article = (props: { path: string }) => {
