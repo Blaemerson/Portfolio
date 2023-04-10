@@ -14,6 +14,37 @@ const filterUserForClient = (user: User) => {
 }
 
 export const articlesRouter = createTRPCRouter({
+  getAll: publicProcedure.query(async ({ ctx }) => {
+    const articles = await ctx.prisma.article.findMany({
+      take: 100,
+      orderBy: [{createdAt: "desc"}],
+    });
+    const users = (await ctx.prisma.user.findMany({take: 100}).then((users) => users.map(filterUserForClient)))
+
+    return articles.map(article => {
+      const author = users.find((user) => user.id === article.author_id)
+      if (!author) throw new TRPCError({code: "INTERNAL_SERVER_ERROR", message: "Author for article not found"})
+      return {
+        article,
+        author,
+      };
+    });
+  }),
+  getArticleById: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ctx, input}) => {
+      const article = await ctx.prisma.article.findFirst({
+        where: {id: input.id},
+      })
+      if (!article) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Article not found",
+        })
+      }
+
+      return article;
+    }),
   getArticleByTitle: publicProcedure
     .input(z.object({ title: z.string() }))
     .query(async ({ctx, input}) => {
@@ -44,7 +75,7 @@ export const articlesRouter = createTRPCRouter({
         data: {
           author_id: authorId,
           title: input.title,
-          content: Buffer.from(input.content).toString('base64'),
+          content: input.content,
         }
       })
 

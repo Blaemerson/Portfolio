@@ -44,7 +44,7 @@ export const Article = (props: { path: string }) => {
       {articleText == "" ? (
         <LoadingPage />
       ) : (
-        <div className="m-4 flex items-center gap-2 rounded-sm bg-white">
+        <div className="m-4 flex items-center">
           <div className="m-16 flex">
             <ReactMarkdown className="prose text-xl text-gray-800">
               {articleText}

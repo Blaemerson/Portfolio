@@ -1,13 +1,22 @@
-import { type NextPage } from "next";
+import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+import { GetStaticProps, InferGetStaticPropsType, type NextPage } from "next";
 import Head from "next/head";
-import { LoadingPage } from "~/components/loading";
-import {api} from "~/utils/api"
+import SuperJSON from "superjson";
+import { appRouter } from "~/server/api/root";
+import { prisma } from "~/server/db";
+import { api } from "~/utils/api";
 
-const ProfilePage: NextPage = () => {
-  const {data, isLoading} = api.profiles.getUserById.useQuery({id: "clg44roux0008sb4ajojjmith"});
-  if (isLoading) return <LoadingPage />
+const ProfilePage: NextPage<{id: string}> = ({ id }) => {
+  const { data, isLoading } = api.profiles.getUserById.useQuery({ id });
 
-  if (!data) return <div>404</div>
+  if (isLoading) console.log("is loading");
+
+  if (!data)
+    return (
+      <div className="flex items-center justify-center text-2xl font-bold text-black">
+        404
+      </div>
+    );
 
   return (
     <>
@@ -17,12 +26,37 @@ const ProfilePage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex h-screen justify-center">
-        <div>
+        <div className="prose">
           {data.name}
+          {data.id}
         </div>
       </main>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const ssg = createProxySSGHelpers({
+    router: appRouter,
+    ctx: { session: null, prisma: prisma },
+    transformer: SuperJSON,
+  });
+
+  const id = context.params?.slug;
+  if (typeof id !== "string") throw new Error("no slug");
+
+  await ssg.profiles.getUserById.prefetch({ id });
+
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+      id: id,
+    },
+  };
+};
+
+export const getStaticPaths = () => {
+  return { paths: [], fallback: "blocking" };
 };
 
 export default ProfilePage;
