@@ -14,6 +14,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 import { SideBar } from "~/components/sidebar";
+import { ArticlePreview } from "~/components/article";
 import ReactMarkdown from "react-markdown";
 
 const CreateArticleWizard = () => {
@@ -54,16 +55,7 @@ const CreateArticleWizard = () => {
           placeholder="Blog Post"
           className="grow rounded-lg bg-white p-4 text-xl text-slate-800 outline-none disabled:bg-slate-300"
           value={input}
-          // type="text"
           disabled={isPosting}
-          // onKeyDown={(e) => {
-          //   if (e.key === "Enter") {
-          //     e.preventDefault();
-          //     if (input !== "") {
-          //       mutate({ content: input });
-          //     }
-          //   }
-          // }}
           onChange={(e) => setInput(e.target.value)}
         />
         <div className="m-4 flex items-center justify-center">
@@ -154,87 +146,7 @@ const CreatePostWizard = () => {
   );
 };
 
-type PostWithUser = RouterOutputs["posts"]["getAll"][number];
 
-const TextPost = (props: PostWithUser) => {
-  const { post, author } = props;
-  return (
-    <div
-      key={post.id}
-      className="m-4 flex gap-2 rounded-md bg-white font-serif text-xl text-slate-700"
-    >
-      <img
-        className="m-2 flex h-16 w-16 rounded-md"
-        src={author.profilePicture!}
-      />
-      <div className="my-2 flex flex-col">
-        <div className="flex">
-          <Link href={`${author.id}`}>
-            <span className="italic text-slate-500">{`${author.name!}`}</span>
-          </Link>
-          <Link href={`/post/${post.id}`}>
-            <span className="whitespace-pre-wrap italic text-slate-400">{` - ${dayjs(
-              post.createdAt
-            ).fromNow()}`}</span>
-          </Link>
-        </div>
-        <Link href={`/post/${post.id}`}>
-          <span className="flex text-slate-600">{post.content}</span>
-        </Link>
-      </div>
-    </div>
-  );
-};
-
-const Feed = () => {
-  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
-
-  if (postsLoading) return <LoadingPage />;
-
-  if (!data)
-    return (
-      <div className="flex justify-center p-10 text-2xl text-red-500">
-        Something went wrong...
-      </div>
-    );
-
-  return (
-    <div>
-      {[...data].map((fullPost) => (
-        <TextPost key={fullPost.post.id} {...fullPost} />
-      ))}
-    </div>
-  );
-};
-
-type ArticleWithUser = RouterOutputs["articles"]["getAll"][number];
-const TextArticle = (props: ArticleWithUser) => {
-  const { article, author } = props;
-
-  const preview = article.content.length > 50 ? article.content.slice(0, 50) : article.content;
-  return (
-    <Link href={`/blog/${article.id}`}>
-      <div
-        key={article.id}
-        className="ms-4 flex gap-2 rounded-md bg-white p-4 font-serif text-xl text-slate-700"
-      >
-        <img
-          className="m-2 flex h-16 w-16 rounded-md"
-          src={author.profilePicture!}
-        />
-        <div className="my-2 flex flex-col">
-          <div className="flex">
-            <span className="italic text-slate-500">{`${author.name!}`}</span>
-            <span className="whitespace-pre-wrap italic text-slate-400">{` - ${dayjs(
-              article.createdAt
-            ).fromNow()}`}</span>
-          </div>
-          <ReactMarkdown>{`${preview}. . .`}</ReactMarkdown>
-        </div>
-      </div>
-    </Link>
-  );
-};
 
 const ArticleFeed = () => {
   const { data, isLoading: postsLoading } = api.articles.getAll.useQuery();
@@ -251,7 +163,7 @@ const ArticleFeed = () => {
   return (
     <div>
       {[...data].map((fullArticle) => (
-        <TextArticle key={fullArticle.article.id} {...fullArticle} />
+        <ArticlePreview key={fullArticle.article.id} {...fullArticle} />
       ))}
     </div>
   );

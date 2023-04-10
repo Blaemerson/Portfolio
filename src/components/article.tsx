@@ -1,57 +1,67 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { LoadingPage } from "./loading";
+import { RouterOutputs } from "~/utils/api";
+import Link from "next/link";
 
-export const Article = (props: { path: string }) => {
-  const [articleText, setArticleText] = useState("");
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
-  // Fetch Terms of Use
-  useEffect(() => {
-    void fetch(props.path)
-      .then((res) => res.text())
-      .then((text) => setArticleText(text));
-  });
+type ArticleWithUser = RouterOutputs["articles"]["getAll"][number];
+export const ArticlePreview = (props: ArticleWithUser) => {
+  const { article, author } = props;
 
-  // const [input, setInput] = useState("");
-  //
-  // const ctx = api.useContext();
-  //
-  // const { mutate, isLoading: isPosting } = api.articles.create.useMutation({
-  //   onSuccess: () => {
-  //     toast.success("Article posted!");
-  //     // setInput("");
-  //     // void ctx.articles.getAll.invalidate();
-  //   },
-  //   onError: (e) => {
-  //     const errorMessage = e.data?.zodError?.fieldErrors.content;
-  //     if (errorMessage && errorMessage[0]) {
-  //       toast.error(errorMessage[0]);
-  //     } else {
-  //       toast.error("Failed to post. Please try again later.");
-  //     }
-  //   },
-  // });
+  const preview = article.content.split("\n").slice(0, 3).join("\n");
+  return (
+    <Link href={`/blog/${article.id}`}>
+      <div
+        key={article.id}
+        className="ms-4 flex gap-2 rounded-md bg-white p-4 font-serif text-xl text-slate-700"
+      >
+        <img
+          className="m-2 flex h-16 w-16 rounded-md"
+          src={author.profilePicture!}
+        />
+        <div className="my-2 flex flex-col">
+          <div className="flex">
+            <span className="italic text-slate-500">{`${author.name!}`}</span>
+            <span className="whitespace-pre-wrap italic text-slate-400">{` - ${dayjs(
+              article.createdAt
+            ).fromNow()}`}</span>
+          </div>
+          <ReactMarkdown>{`${preview}`}</ReactMarkdown>
+          <span className="font-bold text-blue-500 hover:text-blue-400">
+            . . .
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+};
 
-  // <button
-  //   className="w-full h-screen rounded-lg bg-black"
-  //   onClick={() =>
-  //     mutate({ title: "My First Article", content: Buffer.from(articleText).toString("ascii") })
-  //   }
-  // />
-
+export const Article = (props: ArticleWithUser) => {
   return (
     <>
-      {articleText == "" ? (
-        <LoadingPage />
-      ) : (
-        <div className="m-4 flex items-center">
-          <div className="m-16 flex">
-            <ReactMarkdown className="prose text-xl text-gray-800">
-              {articleText}
+      <div
+        key={props.article.id}
+        className="flex rounded-md bg-white font-serif text-xl text-slate-700"
+      >
+        <div className="flex items-center">
+          <div className="flex flex-col p-8">
+            <div className="flex">
+              <span className="justify-center italic text-slate-500">{`Author: ${props
+                .author.name!}`}</span>
+              <span className="whitespace-pre-wrap italic text-slate-400">{` - ${dayjs(
+                props.article.createdAt
+              ).fromNow()}`}</span>
+            </div>
+            <ReactMarkdown className="prose pt-4 text-xl text-gray-800">
+              {props.article.content}
             </ReactMarkdown>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 };
