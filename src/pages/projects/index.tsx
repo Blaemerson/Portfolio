@@ -7,15 +7,39 @@ import { SideBar } from "~/components/sidebar";
 import { Article } from "~/components/article";
 import Link from "next/link";
 
-const ProjectCard = (props: {name: string, link?: string}) => {
+const ProjectCard = (props: {
+  name: string;
+  img?: string;
+  link?: string;
+  desc?: string;
+  tags?: string[];
+}) => {
   return (
-    <div className="w-80 rounded-lg flex bg-white">
-      <div className="text-xl font-bold text-slate-600 p-4">
-        {props.name}
+    <div className="rounded-lg bg-slate-100 shadow-xl">
+      <div>
+        <div className="p-4">
+          {props.img ? (
+            <img
+              className="flex h-64 w-full items-center justify-center rounded-xl bg-white object-cover p-2"
+              src={props.img}
+            />
+          ) : (
+            <></>
+          )}
+          <div className="p-2 text-xl font-bold text-blue-500 underline">
+            <a href={props.link}>{props.name}</a>
+          </div>
+          <div className="p-2 leading-normal text-slate-600">{props.desc}</div>
+          <div className="pb-2 ps-2 leading-normal text-slate-600">
+            <ul className="list-disc px-4 text-slate-500">
+              {props.tags ? props.tags.map((tag, i) => <li key={`${i}`}>{tag}</li>) : <></>}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 const Home: NextPage = () => {
   return (
@@ -26,14 +50,34 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="flex h-screen w-full">
-          <div className="me-80">
-            <SideBar />
-          </div>
-            <div className="h-screen w-full pt-2 md:max-w-4xl">
-              <h1 className="ms-4">Projects</h1>
-              <ProjectCard name="Onionskin Studio"/>
+        <SideBar />
+        <div className="h-screen w-screen pe-16 ps-16 sm:ps-80 lg:text-justify">
+          <div className="pt-2">
+            <h1>Projects</h1>
+            <div className="mt-4 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+              <ProjectCard
+                img="imgs/logo_onionskin_studio.png"
+                link="https://github.com/Blaemerson/Flipbook-Animator"
+                name="Onionskin Studio"
+                desc="A program written in java for creating simple animations by drawing frames."
+                tags={["Java", "JavaFX"]}
+              />
+              <ProjectCard
+                img="imgs/logo_chicken_tender.png"
+                link="https://github.com/Blaemerson/ChickenTender"
+                name="Chicken Tender"
+                desc="Android application for deciding where to eat as a group"
+                tags={["Android", "Java", "Google Maps"]}
+              />
+              <ProjectCard
+                img="imgs/logo_github.png"
+                link="https://github.com/Blaemerson/Portfolio"
+                name="Personal Website"
+                desc="Source code for this website."
+                tags={["React", "Typescript", "NextJS"]}
+              />
             </div>
+          </div>
         </div>
       </main>
     </>
