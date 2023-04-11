@@ -1,12 +1,12 @@
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
-import { GetStaticProps, InferGetStaticPropsType, type NextPage } from "next";
+import { GetStaticProps, type NextPage } from "next";
 import Head from "next/head";
 import SuperJSON from "superjson";
 import { appRouter } from "~/server/api/root";
 import { prisma } from "~/server/db";
 import { api } from "~/utils/api";
 
-const ProfilePage: NextPage<{id: string}> = ({ id }) => {
+const ProfilePage: NextPage<{ id: string }> = ({ id }) => {
   const { data, isLoading } = api.profiles.getUserById.useQuery({ id });
 
   if (isLoading) console.log("is loading");

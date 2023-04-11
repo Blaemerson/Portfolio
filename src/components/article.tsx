@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { LoadingPage } from "./loading";
 import { RouterOutputs } from "~/utils/api";
 import Link from "next/link";
 
@@ -17,13 +15,13 @@ export const ArticlePreview = (props: ArticleWithUser) => {
     <Link href={`/blog/${article.id}`}>
       <div
         key={article.id}
-        className="ms-4 flex gap-2 rounded-md bg-white hover:bg-slate-100 shadow-xl p-4 font-serif text-xl text-slate-700"
+        className="transition my-4 duration-200 ease-in-out hover:bg-white bg-gray-100 flex hover:shadow-xl text-md sm:text-xl text-slate-700"
       >
         <img
-          className="m-2 flex h-16 w-16 rounded-md"
+          className="m-2 flex h-12 w-12 md:h-16 md:w-16"
           src={author.profilePicture!}
         />
-        <div className="my-2 flex flex-col">
+        <div className="m-4 flex flex-col">
           <div className="flex">
             <span className="italic text-slate-500">{`${author.name!}`}</span>
             <span className="whitespace-pre-wrap italic text-slate-400">{` - ${dayjs(
@@ -45,18 +43,18 @@ export const Article = (props: ArticleWithUser) => {
     <>
       <div
         key={props.article.id}
-        className="flex rounded-md bg-white font-serif text-xl text-slate-700"
+        className="flex text-md sm:text-xl text-slate-700"
       >
         <div className="flex items-center">
-          <div className="flex flex-col p-8">
+          <div className="flex flex-col">
             <div className="flex">
-              <span className="justify-center italic text-slate-500">{`Author: ${props
+              <span className="justify-center italic text-slate-500 pb-4">{`Author: ${props
                 .author.name!}`}</span>
               <span className="whitespace-pre-wrap italic text-slate-400">{` - ${dayjs(
                 props.article.createdAt
               ).fromNow()}`}</span>
             </div>
-            <ReactMarkdown className="prose pt-4 text-xl text-gray-800">
+            <ReactMarkdown className="whitespace-pre-wrap text-md sm:text-xl sm:text-justify text-gray-800">
               {props.article.content}
             </ReactMarkdown>
           </div>

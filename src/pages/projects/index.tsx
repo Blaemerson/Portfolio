@@ -1,11 +1,7 @@
 import { type NextPage } from "next";
-import Head from "next/head";
-
-import { api } from "~/utils/api";
+import Link from "next/link";
 
 import { SideBar } from "~/components/sidebar";
-import { Article } from "~/components/article";
-import Link from "next/link";
 
 const ProjectCard = (props: {
   name: string;
@@ -16,7 +12,7 @@ const ProjectCard = (props: {
 }) => {
   return (
     <a href={props.link}>
-      <div className="rounded-lg bg-slate-100 shadow-xl hover:bg-slate-50">
+      <div className="transition my-4 duration-200 ease-in-out hover:bg-white bg-gray-100 hover:shadow-xl text-md sm:text-xl text-slate-700">
         <div>
           <div className="p-4">
             {props.img ? (
@@ -27,7 +23,7 @@ const ProjectCard = (props: {
             ) : (
               <></>
             )}
-            <div className="p-2 text-xl font-bold text-blue-500 underline">
+            <div className="p-2 text-xl font-bold underline">
               {props.name}
             </div>
             <div className="p-2 leading-normal text-slate-600">
@@ -54,10 +50,10 @@ const Home: NextPage = () => {
     <>
       <main>
         <SideBar />
-        <div className="h-screen w-screen pe-16 ps-16 sm:ps-80 lg:text-justify">
+        <div className="h-screen ps-4 pe-4 sm:ps-80 lg:text-justify">
           <div className="pt-2">
             <h1>Projects</h1>
-            <div className="mt-4 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               <ProjectCard
                 img="imgs/logo_onionskin_studio.png"
                 link="https://github.com/Blaemerson/Flipbook-Animator"
@@ -75,7 +71,7 @@ const Home: NextPage = () => {
               <ProjectCard
                 img="imgs/logo_github.png"
                 link="https://github.com/Blaemerson/Portfolio"
-                name="Personal Website"
+                name="My Personal Website"
                 desc="Source code for this website."
                 tags={["React", "Typescript", "NextJS"]}
               />

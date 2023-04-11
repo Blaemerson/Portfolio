@@ -25,19 +25,19 @@ const TextPost = (props: PostWithUser) => {
   return (
     <div
       key={post.id}
-      className="m-4 flex gap-2 rounded-md bg-white font-serif text-xl text-slate-700"
+      className="my-4 flex gap-2 bg-white font-serif text-xl text-slate-700"
     >
       <img
         className="m-2 flex h-16 w-16 rounded-md"
         src={author.profilePicture!}
       />
-      <div className="my-2 flex flex-col">
+      <div className="flex flex-col">
         <div className="flex">
           <Link href={`${author.id}`}>
-            <span className="italic text-slate-500">{`${author.name!}`}</span>
+            <span className="italic text-slate-500">{author.name!}</span>
           </Link>
           <Link href={`/post/${post.id}`}>
-            <span className="whitespace-pre-wrap italic text-slate-400">{` - ${dayjs(
+            <span className="my-2 whitespace-pre-wrap italic text-slate-400">{`- ${dayjs(
               post.createdAt
             ).fromNow()}`}</span>
           </Link>
@@ -50,11 +50,13 @@ const TextPost = (props: PostWithUser) => {
   );
 };
 
-type ArticleIdType = {articleId: string}
-const Feed = ({articleId}: ArticleIdType) => {
-  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery({article_id: articleId});
+type ArticleIdType = { articleId: string };
+const Feed = ({ articleId }: ArticleIdType) => {
+  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery({
+    article_id: articleId,
+  });
 
-  if (postsLoading) return <LoadingPage />;
+  if (postsLoading) return <div className="flex flex-col mb-16 items-center text-xl text-slate-700 justify-center" >Loading Comments...<div className="py-4"></div><LoadingSpinner size={64}/></div>;
 
   if (!data)
     return (
@@ -72,7 +74,7 @@ const Feed = ({articleId}: ArticleIdType) => {
   );
 };
 
-const CreatePostWizard = ({articleId}: ArticleIdType) => {
+const CreatePostWizard = ({ articleId }: ArticleIdType) => {
   const user = useSession().data?.user;
 
   const [input, setInput] = useState("");
@@ -99,11 +101,11 @@ const CreatePostWizard = ({articleId}: ArticleIdType) => {
   console.log(user);
 
   return (
-    <div className="m-6 flex">
+    <div className="flex">
       <img
         src={user.image!}
         alt="Profile Image"
-        className="mr-3 h-16 w-16 rounded-md "
+        className="m-2 h-16 w-16 rounded-md "
       />
       <input
         placeholder="Leave a comment"
@@ -152,12 +154,14 @@ const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
       <main>
         <SideBar />
 
-        <div className="h-screen w-screen pe-16 ps-16 sm:ps-80">
-          <div className="h-screen w-full pt-8 md:max-w-4xl lg:text-justify">
-            <Article key={data.article.id} {...data} />
+        <div className="h-screen w-screen ps-4 pe-4 sm:ps-80 lg:text-justify">
+          <div className="h-screen w-full pt-8 md:max-w-4xl">
+            <div className="bg-white p-8">
+              <Article key={data.article.id} {...data} />
+            </div>
             <div className="pt-8">
-              <CreatePostWizard articleId={data.article.id}/>
-              <Feed articleId={data.article.id}/>
+              <CreatePostWizard articleId={data.article.id} />
+              <Feed articleId={data.article.id} />
             </div>
           </div>
         </div>

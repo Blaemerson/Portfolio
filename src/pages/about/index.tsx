@@ -8,18 +8,18 @@ const Home: NextPage = () => {
     <>
       <main>
         <SideBar />
-        <div className="h-screen w-screen pe-16 ps-16 sm:ps-80">
-          <div className="h-screen w-full pt-2 md:max-w-4xl lg:text-justify">
+        <div className="h-screen w-screen px-4 sm:ps-80">
+          <div className="mt-8 w-full bg-white md:max-w-4xl">
             <h1 className="ms-4">About Me</h1>
-            <div className="m-4 flex items-center gap-2">
+            <div className="text-md m-4 flex items-center gap-2 md:text-xl">
               <div>
                 <h3>Who I Am</h3>
 
                 <div className="p-2" />
-                <p className="text-lg text-slate-800">I&apos;m a programmer!</p>
+                <p className="text-slate-800">I&apos;m a programmer!</p>
 
                 <div className="p-2" />
-                <p className="text-lg text-slate-800">
+                <p className="text-slate-800">
                   When I&apos;m not programming, I enjoy the outdoors,
                   literature, and exploring new technologies.
                 </p>
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
                 <div className="p-2" />
                 <h3>What I Do</h3>
                 <div className="p-2" />
-                <p className="text-lg text-slate-800">
+                <p className="text-slate-800">
                   As a Software Engineer, I seek to build and maintain complex,
                   multi-faceted applications. In addition to my experience as a
                   software developer and engineer, my peers know me for facing
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
                 </p>
 
                 <div className="p-2" />
-                <p className="text-lg text-slate-800">
+                <p className="text-slate-800">
                   At any given time, I may be working on a number of side
                   projects (this site is one of them!)
                 </p>
@@ -45,12 +45,12 @@ const Home: NextPage = () => {
                 <h3>What I Know</h3>
 
                 <div className="p-2" />
-                <p className="text-lg text-slate-800">
+                <p className="text-slate-800">
                   The following is a list of technologies I am proficient in:
                 </p>
 
                 <div className="p-2" />
-                <ul className="list-disc px-6 text-lg text-slate-800">
+                <ul className="list-disc px-6 text-slate-800">
                   <li>Java: I developed several applications using Java.</li>
                   <div className="p-2" />
                   <li>
@@ -67,8 +67,7 @@ const Home: NextPage = () => {
                       className="text-blue-500"
                       href="https://github.com/Blaemerson/Portfolio"
                     >
-                      {" "}
-                      Github page{" "}
+                      {" Github page "}
                     </a>
                     to learn more.
                   </li>

@@ -1,9 +1,7 @@
 import { type NextPage } from "next";
-import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
-import type { RouterOutputs } from "~/utils/api";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -12,10 +10,8 @@ dayjs.extend(relativeTime);
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import Link from "next/link";
 import { SideBar } from "~/components/sidebar";
 import { ArticlePreview } from "~/components/article";
-import ReactMarkdown from "react-markdown";
 
 const CreateArticleWizard = () => {
   const user = useSession().data?.user;
@@ -44,21 +40,21 @@ const CreateArticleWizard = () => {
   console.log(user);
 
   return (
-    <div className="m-6 flex">
+    <div className="flex">
       <img
         src={user.image!}
         alt="Profile Image"
-        className="mr-3 h-16 w-16 rounded-md "
+        className="m-2 h-16 w-16 rounded-md "
       />
       <div className="flex w-full flex-col">
         <textarea
           placeholder="Blog Post"
-          className="grow rounded-lg bg-white p-4 text-xl text-slate-800 outline-none disabled:bg-slate-300"
+          className="grow rounded-lg bg-white p-4 text-xl text-slate-800 disabled:bg-slate-300"
           value={input}
           disabled={isPosting}
           onChange={(e) => setInput(e.target.value)}
         />
-        <div className="mx-4 flex items-center justify-center">
+        <div className="flex items-center justify-center">
           {input !== "" && !isPosting && (
             <button
               className="flex h-16 w-32 items-center justify-center rounded-md bg-gradient-to-b from-slate-400 to-slate-500 text-3xl hover:from-slate-300 hover:to-slate-400"
@@ -79,9 +75,6 @@ const CreateArticleWizard = () => {
     </div>
   );
 };
-
-
-
 
 const ArticleFeed = () => {
   const { data, isLoading: postsLoading } = api.articles.getAll.useQuery();
@@ -110,13 +103,13 @@ const Home: NextPage = () => {
   return (
     <>
       <main>
-        <div className="h-screen w-screen pe-16 ps-16 sm:ps-80 lg:text-justify">
-          <div className="me-80">
+        <div className="h-screen w-screen px-4 sm:ps-80 lg:text-justify">
+          <div>
             <SideBar />
           </div>
           <div className="flex h-screen">
-            <div className="h-screen w-full pt-2 md:max-w-5xl">
-              <h1 className="mb-4 ms-4">Blog</h1>
+            <div className="h-screen w-full md:max-w-5xl">
+              <h1>Blog</h1>
               {user && user.email == "blakesavage99@gmail.com" ? (
                 <CreateArticleWizard />
               ) : (

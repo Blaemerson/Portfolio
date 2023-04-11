@@ -1,12 +1,8 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
 
 export const SideBar = () => {
   const { data: sessionData } = useSession();
-  // <div className="flex h-full justify-center">
-  //   <img className="my-2 h-48 w-48 rounded-md" src="/face.jpg" />
-  // </div>
   return (
     <>
       <button

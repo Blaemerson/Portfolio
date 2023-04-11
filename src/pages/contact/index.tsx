@@ -1,10 +1,6 @@
 import { type NextPage } from "next";
-import Head from "next/head";
-
-import { api } from "~/utils/api";
 
 import { SideBar } from "~/components/sidebar";
-import { Article } from "~/components/article";
 import Link from "next/link";
 
 const Home: NextPage = () => {
@@ -12,41 +8,36 @@ const Home: NextPage = () => {
     <>
       <main>
         <SideBar />
-        <div className="h-screen w-screen pe-16 ps-16 sm:ps-80 lg:text-justify">
-          <div className="h-screen w-full pt-2 md:max-w-4xl">
+        <div className="h-screen w-screen px-4 sm:ps-80">
+          <div className="mt-8 w-full bg-white md:max-w-4xl">
             <h1 className="ms-4">Contact</h1>
-
-            <div className="m-4 flex items-center gap-2">
+            <div className="text-md m-4 flex items-center gap-2 md:text-xl">
               <div>
-                <p className="text-lg text-slate-800">
+                <p className="text-slate-800">
                   You can find me and my work here.
                 </p>
 
-                <div className="p-2" />
-                <ul className="list-disc px-6 text-lg text-slate-800">
+                <div className="py-2" />
+                <ul className="list-disc px-6 text-slate-800">
                   <li>Email: blakesavage99@gmail.com</li>
                   <div className="p-2" />
                   <li>
-                    LinkedIn:{" "}
-                    <a
-                      href="https://www.linkedin.com/in/blake-savage-492140253/"
-                    >
-                      linkedin.com/in/blake-savage
+                    LinkedIn:
+                    <a href="https://www.linkedin.com/in/blake-savage-492140253/">
+                      {" linkedin.com/in/blake-savage "}
                     </a>
                   </li>
                   <div className="p-2" />
                   <li>
                     Github:{" "}
-                    <a
-                      href="https://github.com/Blaemerson"
-                    >
+                    <a href="https://github.com/Blaemerson">
                       github.com/Blaemerson
                     </a>
                   </li>
                 </ul>
 
                 <div className="p-2" />
-                <p className="text-lg text-slate-800">
+                <p className="text-slate-800">
                   Feel free to send me your messages regarding this website and
                   any of its content. I will get back to you as soon as I can
                   (usually within 24 hours).
