@@ -54,7 +54,7 @@ const Home: NextPage = () => {
           <SideBar />
         </div>
         <div className="h-screen ps-4 pe-4 sm:ps-80 lg:text-justify">
-          <div className="pt-2">
+          <div className="mt-8 mb-4">
             <h1>Projects</h1>
             <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               <ProjectCard

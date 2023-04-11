@@ -107,7 +107,7 @@ const Home: NextPage = () => {
             <TopBar/>
             <SideBar />
           </div>
-        <div className="h-screen w-screen px-4 sm:ps-80 lg:text-justify">
+        <div className="mt-8 mb-4 w-screen px-4 sm:ps-80 lg:text-justify">
           <div className="flex h-screen">
             <div className="h-screen w-full md:max-w-5xl">
               <h1>Blog</h1>

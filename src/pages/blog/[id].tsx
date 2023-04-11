@@ -161,7 +161,7 @@ const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
           <TopBar />
           <SideBar />
         </div>
-        <div className="h-screen w-screen pe-4 ps-4 sm:ps-80 lg:text-justify">
+        <div className="mt-8 mb-4 w-screen pe-4 ps-4 sm:ps-80 lg:text-justify">
           <div className="h-screen w-full pt-8 md:max-w-4xl">
             <div className="bg-white p-8">
               <Article key={data.article.id} {...data} />
