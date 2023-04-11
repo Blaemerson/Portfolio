@@ -70,7 +70,7 @@ export const articlesRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
-        title: z.string().min(3).max(30),
+        title: z.string().min(3).max(255),
         content: z.string().min(3).max(2000)
       })
     )

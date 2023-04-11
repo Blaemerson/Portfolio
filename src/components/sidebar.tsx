@@ -6,7 +6,7 @@ export const TopBar = () => {
   return (
     <>
       <div 
-        className="flex items-center justify-center bg-white w-screen translate-y-0 transition-transform sm:-translate-y-full"
+        className="fixed left-0 top-0 right-0 flex items-center justify-center bg-white w-screen translate-y-0 transition-transform sm:-translate-y-full"
       >
         <div className="grid grid-cols-5 ">
             <Link

@@ -11,7 +11,7 @@ const Home: NextPage = () => {
           <TopBar/>
           <SideBar />
         </div>
-        <div className="h-screen w-screen px-4 sm:ps-80">
+        <div className="mt-8 mb-4 w-screen px-4 sm:ps-80">
           <h1>Contact</h1>
           <div className="mt-2 sm:mt-4 w-full shadow-xl bg-white md:max-w-4xl">
             <div className="text-md m-4 flex items-center gap-2 md:text-xl">
