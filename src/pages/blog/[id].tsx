@@ -11,7 +11,7 @@ import ReactMarkdown from "react-markdown";
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import Link from "next/link";
 import { Article } from "~/components/article";
-import { SideBar } from "~/components/sidebar";
+import { SideBar, TopBar } from "~/components/sidebar";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -56,7 +56,13 @@ const Feed = ({ articleId }: ArticleIdType) => {
     article_id: articleId,
   });
 
-  if (postsLoading) return <div className="flex flex-col mb-16 items-center text-xl text-slate-700 justify-center" >Loading Comments...<div className="py-4"></div><LoadingSpinner size={64}/></div>;
+  if (postsLoading)
+    return (
+      <div className="mb-16 flex flex-col items-center justify-center text-xl text-slate-700">
+        Loading Comments...<div className="py-4"></div>
+        <LoadingSpinner size={64} />
+      </div>
+    );
 
   if (!data)
     return (
@@ -140,7 +146,6 @@ const CreatePostWizard = ({ articleId }: ArticleIdType) => {
   );
 };
 
-type ArticleWithUser = RouterOutputs["articles"]["getAll"][number];
 const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
   const { data } = api.articles.getArticleById.useQuery({ id });
 
@@ -152,9 +157,11 @@ const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
         <title>{data.article.title}</title>
       </Head>
       <main>
-        <SideBar />
-
-        <div className="h-screen w-screen ps-4 pe-4 sm:ps-80 lg:text-justify">
+        <div>
+          <TopBar />
+          <SideBar />
+        </div>
+        <div className="h-screen w-screen pe-4 ps-4 sm:ps-80 lg:text-justify">
           <div className="h-screen w-full pt-8 md:max-w-4xl">
             <div className="bg-white p-8">
               <Article key={data.article.id} {...data} />

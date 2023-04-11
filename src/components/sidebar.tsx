@@ -1,33 +1,58 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
+export const TopBar = () => {
+  const { data: sessionData } = useSession();
+  return (
+    <>
+      <div 
+        className="flex items-center justify-center bg-white w-screen translate-y-0 transition-transform sm:-translate-y-full"
+      >
+        <div className="grid grid-cols-5 ">
+            <Link
+              href={`/about/`}
+              className="justify-center flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+            >
+
+              <span>About</span>
+            </Link>
+            <Link
+              href={`/contact/`}
+              className="justify-center flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+            >
+              <span>Contact</span>
+            </Link>
+            <Link
+              href={`/`}
+              className="justify-center flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+            >
+              <span>Blog</span>
+            </Link>
+            <Link
+              href={`/projects`}
+              className="justify-center flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+            >
+              <span>Projects</span>
+            </Link>
+            <a
+              href="#"
+              onClick={sessionData ? () => void signOut() : () => void signIn()}
+              className="justify-center flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+            >
+              <span>
+                {sessionData ? "Sign Out" : "Sign In"}
+              </span>
+            </a>
+        </div>
+      </div>
+    </>
+  );
+};
+
 export const SideBar = () => {
   const { data: sessionData } = useSession();
   return (
     <>
-      <button
-        data-drawer-target="default-sidebar"
-        data-drawer-toggle="default-sidebar"
-        aria-controls="default-sidebar"
-        type="button"
-        className="ml-3 mt-2 inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
-      >
-        <span className="sr-only">Open sidebar</span>
-        <svg
-          className="h-6 w-6"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clipRule="evenodd"
-            fillRule="evenodd"
-            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-          ></path>
-        </svg>
-      </button>
-
       <aside
         id="default-sidebar"
         className="fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full transition-transform sm:translate-x-0"

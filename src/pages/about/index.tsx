@@ -1,16 +1,19 @@
 import { type NextPage } from "next";
 
-import { SideBar } from "~/components/sidebar";
+import { SideBar, TopBar } from "~/components/sidebar";
 import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
     <>
       <main>
-        <SideBar />
+        <div>
+          <TopBar/>
+          <SideBar />
+        </div>
         <div className="h-screen w-screen px-4 sm:ps-80">
-          <div className="mt-8 w-full bg-white md:max-w-4xl">
-            <h1 className="ms-4">About Me</h1>
+          <h1>About Me</h1>
+          <div className="mt-4 sm:mt-0 w-full shadow-xl bg-white md:max-w-4xl">
             <div className="text-md m-4 flex items-center gap-2 md:text-xl">
               <div>
                 <h3>Who I Am</h3>

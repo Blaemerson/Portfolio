@@ -10,7 +10,7 @@ dayjs.extend(relativeTime);
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { SideBar } from "~/components/sidebar";
+import { SideBar, TopBar } from "~/components/sidebar";
 import { ArticlePreview } from "~/components/article";
 
 const CreateArticleWizard = () => {
@@ -103,10 +103,11 @@ const Home: NextPage = () => {
   return (
     <>
       <main>
-        <div className="h-screen w-screen px-4 sm:ps-80 lg:text-justify">
           <div>
+            <TopBar/>
             <SideBar />
           </div>
+        <div className="h-screen w-screen px-4 sm:ps-80 lg:text-justify">
           <div className="flex h-screen">
             <div className="h-screen w-full md:max-w-5xl">
               <h1>Blog</h1>

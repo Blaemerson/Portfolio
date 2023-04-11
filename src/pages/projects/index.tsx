@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Link from "next/link";
 
-import { SideBar } from "~/components/sidebar";
+import { SideBar, TopBar } from "~/components/sidebar";
 
 const ProjectCard = (props: {
   name: string;
@@ -49,7 +49,10 @@ const Home: NextPage = () => {
   return (
     <>
       <main>
-        <SideBar />
+        <div>
+          <TopBar/>
+          <SideBar />
+        </div>
         <div className="h-screen ps-4 pe-4 sm:ps-80 lg:text-justify">
           <div className="pt-2">
             <h1>Projects</h1>
