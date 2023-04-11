@@ -2,18 +2,21 @@ import { GetStaticProps, InferGetStaticPropsType, type NextPage } from "next";
 import { RouterOutputs, api } from "~/utils/api";
 
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+import { toast } from "react-hot-toast";
 import { appRouter } from "~/server/api/root";
 import { prisma } from "~/server/db";
 import SuperJSON from "superjson";
 import Head from "next/head";
 import ReactMarkdown from "react-markdown";
-import { LoadingPage } from "~/components/loading";
+import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import Link from "next/link";
 import { Article } from "~/components/article";
 import { SideBar } from "~/components/sidebar";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 dayjs.extend(relativeTime);
 
 type PostWithUser = RouterOutputs["posts"]["getAll"][number];
@@ -47,8 +50,9 @@ const TextPost = (props: PostWithUser) => {
   );
 };
 
-const Feed = () => {
-  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
+type ArticleIdType = {articleId: string}
+const Feed = ({articleId}: ArticleIdType) => {
+  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery({article_id: articleId});
 
   if (postsLoading) return <LoadingPage />;
 
@@ -60,10 +64,76 @@ const Feed = () => {
     );
 
   return (
-    <div>
+    <div className="mb-16">
       {[...data].map((fullPost) => (
         <TextPost key={fullPost.post.id} {...fullPost} />
       ))}
+    </div>
+  );
+};
+
+const CreatePostWizard = ({articleId}: ArticleIdType) => {
+  const user = useSession().data?.user;
+
+  const [input, setInput] = useState("");
+
+  const ctx = api.useContext();
+
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
+    onSuccess: () => {
+      setInput("");
+      void ctx.posts.getAll.invalidate();
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      if (errorMessage && errorMessage[0]) {
+        toast.error(errorMessage[0]);
+      } else {
+        toast.error("Failed to post. Please try again later.");
+      }
+    },
+  });
+
+  if (!user) return null;
+
+  console.log(user);
+
+  return (
+    <div className="m-6 flex">
+      <img
+        src={user.image!}
+        alt="Profile Image"
+        className="mr-3 h-16 w-16 rounded-md "
+      />
+      <input
+        placeholder="Leave a comment"
+        className="grow rounded-lg bg-white px-4 text-xl text-slate-800 outline-none disabled:bg-slate-300"
+        value={input}
+        type="text"
+        disabled={isPosting}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            if (input !== "") {
+              mutate({ content: input, article_id: articleId });
+            }
+          }
+        }}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      {input !== "" && !isPosting && (
+        <button
+          className="ml-3 w-24 rounded-md bg-gradient-to-b from-slate-400 to-slate-500 text-xl hover:from-slate-300 hover:to-slate-400"
+          onClick={() => mutate({ content: input, article_id: articleId })}
+        >
+          Post
+        </button>
+      )}
+      {isPosting && (
+        <div className="flex items-center justify-center">
+          <LoadingSpinner size={40} />
+        </div>
+      )}
     </div>
   );
 };
@@ -85,13 +155,9 @@ const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
         <div className="h-screen w-screen pe-16 ps-16 sm:ps-80">
           <div className="h-screen w-full pt-8 md:max-w-4xl lg:text-justify">
             <Article key={data.article.id} {...data} />
-            <div className="flex justify-end">
-              <Link
-                href={`/`}
-                className="mb-6 me-4 mt-4 flex h-16 w-48 items-center justify-center rounded-full bg-gradient-to-b from-indigo-200 to-indigo-300 p-2 text-xl font-bold text-gray-900 hover:from-indigo-100 hover:to-indigo-200 dark:text-white dark:hover:bg-gray-700"
-              >
-                Back
-              </Link>
+            <div className="pt-8">
+              <CreatePostWizard articleId={data.article.id}/>
+              <Feed articleId={data.article.id}/>
             </div>
           </div>
         </div>

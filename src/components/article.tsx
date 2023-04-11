@@ -17,7 +17,7 @@ export const ArticlePreview = (props: ArticleWithUser) => {
     <Link href={`/blog/${article.id}`}>
       <div
         key={article.id}
-        className="ms-4 flex gap-2 rounded-md bg-white p-4 font-serif text-xl text-slate-700"
+        className="ms-4 flex gap-2 rounded-md bg-white hover:bg-slate-100 shadow-xl p-4 font-serif text-xl text-slate-700"
       >
         <img
           className="m-2 flex h-16 w-16 rounded-md"

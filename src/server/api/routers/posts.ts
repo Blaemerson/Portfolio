@@ -13,10 +13,12 @@ const filterUserForClient = (user: User) => {
 }
 
 export const postsRouter = createTRPCRouter({
-  getAll: publicProcedure.query(async ({ ctx }) => {
+  getAll: publicProcedure .input(z.object({ article_id: z.string() }))
+  .query(async ({ ctx, input }) => {
     const posts = await ctx.prisma.post.findMany({
       take: 100,
-      orderBy: [{createdAt: "desc"}],
+      orderBy: [{createdAt: "asc"}],
+      where: {article_id: input.article_id}
     });
     const users = (await ctx.prisma.user.findMany({take: 100}).then((users) => users.map(filterUserForClient)))
 
@@ -33,7 +35,8 @@ export const postsRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
-        content: z.string().min(3).max(1000)
+        content: z.string().min(3).max(1000),
+        article_id: z.string().min(0).max(255)
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -43,6 +46,7 @@ export const postsRouter = createTRPCRouter({
         data: {
           author_id: authorId,
           content: input.content,
+          article_id: input.article_id,
         }
       })
 

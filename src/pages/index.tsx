@@ -58,7 +58,7 @@ const CreateArticleWizard = () => {
           disabled={isPosting}
           onChange={(e) => setInput(e.target.value)}
         />
-        <div className="m-4 flex items-center justify-center">
+        <div className="mx-4 flex items-center justify-center">
           {input !== "" && !isPosting && (
             <button
               className="flex h-16 w-32 items-center justify-center rounded-md bg-gradient-to-b from-slate-400 to-slate-500 text-3xl hover:from-slate-300 hover:to-slate-400"
@@ -80,71 +80,6 @@ const CreateArticleWizard = () => {
   );
 };
 
-const CreatePostWizard = () => {
-  const user = useSession().data?.user;
-
-  const [input, setInput] = useState("");
-
-  const ctx = api.useContext();
-
-  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
-    onSuccess: () => {
-      setInput("");
-      void ctx.posts.getAll.invalidate();
-    },
-    onError: (e) => {
-      const errorMessage = e.data?.zodError?.fieldErrors.content;
-      if (errorMessage && errorMessage[0]) {
-        toast.error(errorMessage[0]);
-      } else {
-        toast.error("Failed to post. Please try again later.");
-      }
-    },
-  });
-
-  if (!user) return null;
-
-  console.log(user);
-
-  return (
-    <div className="mx-6 flex">
-      <img
-        src={user.image!}
-        alt="Profile Image"
-        className="mr-3 h-16 w-16 rounded-md "
-      />
-      <input
-        placeholder="Comment"
-        className="grow rounded-lg bg-white px-4 text-xl text-slate-800 outline-none disabled:bg-slate-300"
-        value={input}
-        type="text"
-        disabled={isPosting}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            if (input !== "") {
-              mutate({ content: input });
-            }
-          }
-        }}
-        onChange={(e) => setInput(e.target.value)}
-      />
-      {input !== "" && !isPosting && (
-        <button
-          className="ml-3 w-24 rounded-md bg-gradient-to-b from-slate-400 to-slate-500 text-xl hover:from-slate-300 hover:to-slate-400"
-          onClick={() => mutate({ content: input })}
-        >
-          Post
-        </button>
-      )}
-      {isPosting && (
-        <div className="flex items-center justify-center">
-          <LoadingSpinner size={40} />
-        </div>
-      )}
-    </div>
-  );
-};
 
 
 
@@ -161,7 +96,7 @@ const ArticleFeed = () => {
     );
 
   return (
-    <div>
+    <div className="pb-16">
       {[...data].map((fullArticle) => (
         <ArticlePreview key={fullArticle.article.id} {...fullArticle} />
       ))}
@@ -170,7 +105,6 @@ const ArticleFeed = () => {
 };
 
 const Home: NextPage = () => {
-  api.posts.getAll.useQuery();
   const user = useSession().data?.user;
 
   return (

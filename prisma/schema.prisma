@@ -14,6 +14,7 @@ datasource db {
 model Post {
     id        String   @id @default(cuid())
     author_id String   @db.VarChar(255)
+    article_id String  @db.VarChar(255)
     createdAt DateTime @default(now())
     content   String   @db.VarChar(512)
     updatedAt DateTime @updatedAt
