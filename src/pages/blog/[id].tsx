@@ -1,4 +1,4 @@
-import { GetStaticProps, InferGetStaticPropsType, type NextPage } from "next";
+import { GetStaticProps, type NextPage } from "next";
 import { RouterOutputs, api } from "~/utils/api";
 
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
@@ -7,11 +7,9 @@ import { appRouter } from "~/server/api/root";
 import { prisma } from "~/server/db";
 import SuperJSON from "superjson";
 import Head from "next/head";
-import ReactMarkdown from "react-markdown";
-import { LoadingPage, LoadingSpinner } from "~/components/loading";
+import { LoadingSpinner } from "~/components/loading";
 import Link from "next/link";
 import { Article } from "~/components/article";
-import { SideBar, TopBar } from "~/components/sidebar";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -20,12 +18,12 @@ import { useState } from "react";
 import { PageLayout } from "~/components/layout";
 dayjs.extend(relativeTime);
 
-type PostWithUser = RouterOutputs["posts"]["getAll"][number];
+type PostWithUser = RouterOutputs["comments"]["getAll"][number];
 const Comment = (props: PostWithUser) => {
-  const { post, author } = props;
+  const { comment, author } = props;
   return (
     <div
-      key={post.id}
+      key={comment.id}
       className="text-md my-2 flex bg-white p-3 text-slate-700 sm:text-xl"
     >
       <img
@@ -37,12 +35,12 @@ const Comment = (props: PostWithUser) => {
           <Link href={`${author.id}`}>
             <span className="italic text-slate-500">{author.name!}</span>
             <span className="my-2 whitespace-pre-wrap italic text-slate-400">{`- ${dayjs(
-              post.createdAt
+              comment.createdAt
             ).fromNow()}`}</span>
           </Link>
         </div>
-        <Link href={`/post/${post.id}`}>
-          <span className="flex text-slate-600">{post.content}</span>
+        <Link href={`/post/${comment.id}`}>
+          <span className="flex text-slate-600">{comment.content}</span>
         </Link>
       </div>
     </div>
@@ -51,11 +49,11 @@ const Comment = (props: PostWithUser) => {
 
 type ArticleIdType = { articleId: string };
 const CommentFeed = ({ articleId }: ArticleIdType) => {
-  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery({
+  const { data, isLoading: commentsLoading } = api.comments.getAll.useQuery({
     article_id: articleId,
   });
 
-  if (postsLoading)
+  if (commentsLoading)
     return (
       <div className="mb-16 flex flex-col items-center justify-center text-xl text-slate-700">
         Loading Comments...<div className="py-4"></div>
@@ -73,7 +71,7 @@ const CommentFeed = ({ articleId }: ArticleIdType) => {
   return (
     <div className="mb-16">
       {[...data].map((fullPost) => (
-        <Comment key={fullPost.post.id} {...fullPost} />
+        <Comment key={fullPost.comment.id} {...fullPost} />
       ))}
     </div>
   );
@@ -86,10 +84,10 @@ const CreateCommentWizard = ({ articleId }: ArticleIdType) => {
 
   const ctx = api.useContext();
 
-  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
+  const { mutate, isLoading: isPosting } = api.comments.create.useMutation({
     onSuccess: () => {
       setInput("");
-      void ctx.posts.getAll.invalidate();
+      void ctx.comments.getAll.invalidate();
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;

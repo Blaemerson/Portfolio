@@ -1,12 +1,18 @@
 import { type NextPage } from "next";
 
-import { SideBar, TopBar } from "~/components/sidebar";
-import Link from "next/link";
 import { PageLayout } from "~/components/layout";
 
 import { toast } from "react-hot-toast";
 
 const Home: NextPage = () => {
+  async function writeToClipboard(text: string) {
+    try {
+      await navigator.clipboard.writeText(text).then(() => toast.success("Copied email address to clipboard"));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <PageLayout>
       <h1>Contact</h1>
@@ -21,10 +27,7 @@ const Home: NextPage = () => {
                 Email:
                 <a
                   className="cursor-pointer"
-                  onClick={() => {
-                    navigator.clipboard.writeText("blakesavage99@gmail.com");
-                    toast.success("Copied Email Address to Clipboard");
-                  }}
+                  onClick={() => void writeToClipboard("blakesavage99@gmail.com")}
                 >
                   {" blakesavage99@gmail.com "}
                 </a>

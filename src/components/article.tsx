@@ -4,17 +4,15 @@ import Link from "next/link";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { LoadingSpinner } from "./loading";
 dayjs.extend(relativeTime);
 
 type ArticleWithUser = RouterOutputs["articles"]["getAll"][number];
 export const ArticlePreview = (props: ArticleWithUser) => {
   const { article, author } = props;
-  const { data, isLoading: commentsLoading } = api.posts.getAll.useQuery({
+  const { data: numComments, isLoading: commentsLoading } = api.comments.aggregate.useQuery({
     article_id: article.id,
   });
-
-  let commentCount = 0;
-  if (data) commentCount = data.length;
 
   const preview = article.content.split("\n").slice(0, 3).join("\n");
   return (
@@ -38,7 +36,7 @@ export const ArticlePreview = (props: ArticleWithUser) => {
         <span id="comment_count" className="flex items-end hover:text-blue-400">
           <Link scroll={false} href={`/blog/${article.id}#comment_section`}>
             <span className="m-2 flex  items-center gap-x-2 font-bold ">
-              {commentCount}
+              {commentsLoading ? <LoadingSpinner size={20}/> : numComments}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
