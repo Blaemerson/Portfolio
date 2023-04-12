@@ -13,7 +13,7 @@ const Home: NextPage = () => {
         </div>
         <div className="mt-8 mb-4 w-screen px-4 sm:ps-80">
           <h1>About Me</h1>
-          <div className="mt-4 sm:mt-0 w-full shadow-xl bg-white md:max-w-4xl">
+          <div className="p-4 sm:mt-0 w-full shadow-xl bg-white md:max-w-4xl">
             <div className="text-md m-4 flex items-center gap-2 md:text-xl">
               <div>
                 <h3>Who I Am</h3>
@@ -76,14 +76,6 @@ const Home: NextPage = () => {
                   </li>
                 </ul>
               </div>
-            </div>
-            <div className="flex justify-end">
-              <Link
-                href={`/contact`}
-                className="mb-6 me-4 mt-4 flex h-16 w-48 items-center justify-center rounded-full bg-gradient-to-b from-indigo-200 to-indigo-300 p-2 text-xl font-bold text-gray-900 hover:from-indigo-100 hover:to-indigo-200 dark:text-white dark:hover:bg-gray-700"
-              >
-                Contact
-              </Link>
             </div>
           </div>
         </div>

@@ -5,6 +5,8 @@
 body {
   @apply bg-slate-200 text-slate-100;
   font-family: 'Montserrat', sans-serif;
+  /* @apply bg-[url('/imgs/dot-grid.webp')]; */
+  /* @apply bg-repeat bg-center bg-fixed; */
 }
 
 

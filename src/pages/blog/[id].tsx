@@ -107,15 +107,10 @@ const CreatePostWizard = ({ articleId }: ArticleIdType) => {
   console.log(user);
 
   return (
-    <div className="flex">
-      <img
-        src={user.image!}
-        alt="Profile Image"
-        className="m-2 h-16 w-16 rounded-md "
-      />
+    <div className="flex flex-col">
       <input
         placeholder="Leave a comment"
-        className="grow rounded-lg bg-white px-4 text-xl text-slate-800 outline-none disabled:bg-slate-300"
+        className="rounded-lg bg-white p-4 text-xl text-slate-800 disabled:bg-slate-300"
         value={input}
         type="text"
         disabled={isPosting}
@@ -131,7 +126,7 @@ const CreatePostWizard = ({ articleId }: ArticleIdType) => {
       />
       {input !== "" && !isPosting && (
         <button
-          className="ml-3 w-24 rounded-md bg-gradient-to-b from-slate-400 to-slate-500 text-xl hover:from-slate-300 hover:to-slate-400"
+          className="my-3 w-24 rounded-md bg-gradient-to-b from-slate-400 to-slate-500 text-xl hover:from-slate-300 hover:to-slate-400"
           onClick={() => mutate({ content: input, article_id: articleId })}
         >
           Post
@@ -161,7 +156,7 @@ const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
           <TopBar />
           <SideBar />
         </div>
-        <div className="mt-8 mb-4 w-screen pe-4 ps-4 sm:ps-80 lg:text-justify">
+        <div className="mb-4 mt-8 w-screen pe-4 ps-4 sm:ps-80 lg:text-justify">
           <div className="h-screen w-full pt-8 md:max-w-4xl">
             <div className="bg-white p-8">
               <Article key={data.article.id} {...data} />
