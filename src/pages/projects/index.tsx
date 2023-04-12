@@ -10,7 +10,7 @@ const ProjectCard = (props: {
 }) => {
   return (
     <a href={props.link}>
-      <div className="text-md my-4 bg-gray-100 text-slate-700 transition duration-200 ease-in-out hover:bg-white hover:shadow-xl sm:text-xl">
+      <div className="text-md h-full bg-gray-100 transition duration-200 ease-in-out hover:bg-white hover:shadow-xl sm:text-xl">
         <div>
           <div className="p-4">
             {props.img ? (
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
     <PageLayout>
       <div>
         <h1>Projects</h1>
-        <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <ProjectCard
             img="imgs/logo_onionskin_studio.png"
             link="https://github.com/Blaemerson/Flipbook-Animator"

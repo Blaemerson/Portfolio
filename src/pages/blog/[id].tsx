@@ -156,7 +156,7 @@ const BlogPostPage: NextPage<{ id: string }> = ({ id }) => {
           <div className="bg-white p-8">
             <Article key={data.article.id} {...data} />
           </div>
-          <div id="comment-section" className="pt-8">
+          <div id="comment_section" className="pt-8">
             <CreateCommentWizard articleId={data.article.id} />
             <CommentFeed articleId={data.article.id} />
           </div>

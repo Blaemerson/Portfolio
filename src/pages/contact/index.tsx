@@ -4,6 +4,8 @@ import { SideBar, TopBar } from "~/components/sidebar";
 import Link from "next/link";
 import { PageLayout } from "~/components/layout";
 
+import { toast } from "react-hot-toast";
+
 const Home: NextPage = () => {
   return (
     <PageLayout>
@@ -15,7 +17,18 @@ const Home: NextPage = () => {
 
             <div className="py-2" />
             <ul className="list-disc px-6 text-slate-800">
-              <li>Email: blakesavage99@gmail.com</li>
+              <li>
+                Email:
+                <a
+                  className="cursor-pointer"
+                  onClick={() => {
+                    navigator.clipboard.writeText("blakesavage99@gmail.com");
+                    toast.success("Copied Email Address to Clipboard");
+                  }}
+                >
+                  {" blakesavage99@gmail.com "}
+                </a>
+              </li>
               <div className="p-2" />
               <li>
                 LinkedIn:
@@ -25,9 +38,9 @@ const Home: NextPage = () => {
               </li>
               <div className="p-2" />
               <li>
-                Github:{" "}
+                Github:
                 <a href="https://github.com/Blaemerson">
-                  github.com/Blaemerson
+                  {" github.com/Blaemerson "}
                 </a>
               </li>
             </ul>
