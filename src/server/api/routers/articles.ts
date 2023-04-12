@@ -10,20 +10,31 @@ import {
 } from "~/server/api/trpc";
 
 const filterUserForClient = (user: User) => {
-  return {id: user.id, name: user.name, username: user.username, profilePicture: user.image};
-}
+  return {
+    id: user.id,
+    name: user.name,
+    username: user.username,
+    profilePicture: user.image,
+  };
+};
 
 export const articlesRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
     const articles = await ctx.prisma.article.findMany({
       take: 100,
-      orderBy: [{createdAt: "desc"}],
+      orderBy: [{ createdAt: "desc" }],
     });
-    const users = (await ctx.prisma.user.findMany({take: 100}).then((users) => users.map(filterUserForClient)))
+    const users = await ctx.prisma.user
+      .findMany({ take: 100 })
+      .then((users) => users.map(filterUserForClient));
 
-    return articles.map(article => {
-      const author = users.find((user) => user.id === article.author_id)
-      if (!author) throw new TRPCError({code: "INTERNAL_SERVER_ERROR", message: "Author for article not found"})
+    return articles.map((article) => {
+      const author = users.find((user) => user.id === article.author_id);
+      if (!author)
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Author for article not found",
+        });
       return {
         article,
         author,
@@ -32,20 +43,26 @@ export const articlesRouter = createTRPCRouter({
   }),
   getArticleById: publicProcedure
     .input(z.object({ id: z.string() }))
-    .query(async ({ctx, input}) => {
+    .query(async ({ ctx, input }) => {
       const article = await ctx.prisma.article.findFirst({
-        where: {id: input.id},
-      })
+        where: { id: input.id },
+      });
       if (!article) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Article not found",
-        })
+        });
       }
-      const users = (await ctx.prisma.user.findMany({take: 100}).then((users) => users.map(filterUserForClient)))
+      const users = await ctx.prisma.user
+        .findMany({ take: 100 })
+        .then((users) => users.map(filterUserForClient));
 
-      const author = users.find((user) => user.id === article.author_id)
-      if (!author) throw new TRPCError({code: "INTERNAL_SERVER_ERROR", message: "Author for article not found"})
+      const author = users.find((user) => user.id === article.author_id);
+      if (!author)
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Author for article not found",
+        });
       return {
         article,
         author,
@@ -53,25 +70,32 @@ export const articlesRouter = createTRPCRouter({
     }),
   getArticleByTitle: publicProcedure
     .input(z.object({ title: z.string() }))
-    .query(async ({ctx, input}) => {
+    .query(async ({ ctx, input }) => {
       const article = await ctx.prisma.article.findFirst({
-        where: {title: input.title},
-      })
+        where: { title: input.title },
+      });
       if (!article) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Article not found",
-        })
+        });
       }
 
       return article;
     }),
 
+  delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.article.delete({
+        where: { id: input.id },
+      });
+    }),
   create: protectedProcedure
     .input(
       z.object({
         title: z.string().min(3).max(255),
-        content: z.string().min(3).max(2000)
+        content: z.string().min(3).max(2000),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -82,9 +106,9 @@ export const articlesRouter = createTRPCRouter({
           author_id: authorId,
           title: input.title,
           content: input.content,
-        }
-      })
+        },
+      });
 
       return article;
-  }),
+    }),
 });

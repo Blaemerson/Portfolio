@@ -99,18 +99,14 @@ const CreateCommentWizard = ({ articleId }: ArticleIdType) => {
     },
   });
 
-  if (!user) return null;
-
-  console.log(user);
-
   return (
     <div className="flex flex-col md:flex-row">
       <input
-        placeholder="Leave a comment"
+        placeholder={user ? "Leave a comment" : "You have to be signed in to comment"}
         className="text-md w-full rounded-lg bg-white p-4 text-slate-800 disabled:bg-slate-300 sm:text-xl"
         value={input}
         type="text"
-        disabled={isPosting}
+        disabled={isPosting || !user}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();
