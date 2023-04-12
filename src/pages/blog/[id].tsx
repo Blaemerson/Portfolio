@@ -17,26 +17,25 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { PageLayout } from "~/components/layout";
 dayjs.extend(relativeTime);
 
 type PostWithUser = RouterOutputs["posts"]["getAll"][number];
-const TextPost = (props: PostWithUser) => {
+const Comment = (props: PostWithUser) => {
   const { post, author } = props;
   return (
     <div
       key={post.id}
-      className="my-4 flex gap-2 bg-white font-serif text-xl text-slate-700"
+      className="text-md my-2 flex bg-white p-3 text-slate-700 sm:text-xl"
     >
       <img
-        className="m-2 flex h-16 w-16 rounded-md"
+        className="me-4 flex h-12 w-12 rounded-md sm:h-16 sm:w-16"
         src={author.profilePicture!}
       />
       <div className="flex flex-col">
         <div className="flex">
           <Link href={`${author.id}`}>
             <span className="italic text-slate-500">{author.name!}</span>
-          </Link>
-          <Link href={`/post/${post.id}`}>
             <span className="my-2 whitespace-pre-wrap italic text-slate-400">{`- ${dayjs(
               post.createdAt
             ).fromNow()}`}</span>
@@ -51,7 +50,7 @@ const TextPost = (props: PostWithUser) => {
 };
 
 type ArticleIdType = { articleId: string };
-const Feed = ({ articleId }: ArticleIdType) => {
+const CommentFeed = ({ articleId }: ArticleIdType) => {
   const { data, isLoading: postsLoading } = api.posts.getAll.useQuery({
     article_id: articleId,
   });
@@ -74,13 +73,13 @@ const Feed = ({ articleId }: ArticleIdType) => {
   return (
     <div className="mb-16">
       {[...data].map((fullPost) => (
-        <TextPost key={fullPost.post.id} {...fullPost} />
+        <Comment key={fullPost.post.id} {...fullPost} />
       ))}
     </div>
   );
 };
 
-const CreatePostWizard = ({ articleId }: ArticleIdType) => {
+const CreateCommentWizard = ({ articleId }: ArticleIdType) => {
   const user = useSession().data?.user;
 
   const [input, setInput] = useState("");
@@ -107,10 +106,10 @@ const CreatePostWizard = ({ articleId }: ArticleIdType) => {
   console.log(user);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col md:flex-row">
       <input
         placeholder="Leave a comment"
-        className="rounded-lg bg-white p-4 text-xl text-slate-800 disabled:bg-slate-300"
+        className="text-md w-full rounded-lg bg-white p-4 text-slate-800 disabled:bg-slate-300 sm:text-xl"
         value={input}
         type="text"
         disabled={isPosting}
@@ -125,12 +124,14 @@ const CreatePostWizard = ({ articleId }: ArticleIdType) => {
         onChange={(e) => setInput(e.target.value)}
       />
       {input !== "" && !isPosting && (
-        <button
-          className="my-3 w-24 rounded-md bg-gradient-to-b from-slate-400 to-slate-500 text-xl hover:from-slate-300 hover:to-slate-400"
-          onClick={() => mutate({ content: input, article_id: articleId })}
-        >
-          Post
-        </button>
+        <div className="ms-4 flex justify-end">
+          <button
+            className="text-md m-2 w-24 rounded-xl bg-gradient-to-b from-orange-200 to-orange-300 p-2 font-bold text-slate-700 hover:from-orange-300 hover:to-orange-400 sm:text-xl md:m-0"
+            onClick={() => mutate({ content: input, article_id: articleId })}
+          >
+            Submit
+          </button>
+        </div>
       )}
       {isPosting && (
         <div className="flex items-center justify-center">
@@ -141,33 +142,26 @@ const CreatePostWizard = ({ articleId }: ArticleIdType) => {
   );
 };
 
-const SinglePostPage: NextPage<{ id: string }> = ({ id }) => {
+const BlogPostPage: NextPage<{ id: string }> = ({ id }) => {
   const { data } = api.articles.getArticleById.useQuery({ id });
 
   if (!data) return <div> No Data </div>;
-
   return (
     <>
       <Head>
         <title>{data.article.title}</title>
       </Head>
-      <main>
-        <div>
-          <TopBar />
-          <SideBar />
-        </div>
-        <div className="mb-4 mt-8 w-screen pe-4 ps-4 sm:ps-80 lg:text-justify">
-          <div className="h-screen w-full pt-8 md:max-w-4xl">
-            <div className="bg-white p-8">
-              <Article key={data.article.id} {...data} />
-            </div>
-            <div className="pt-8">
-              <CreatePostWizard articleId={data.article.id} />
-              <Feed articleId={data.article.id} />
-            </div>
+      <PageLayout>
+        <div className="h-screen w-full pt-8 md:max-w-4xl">
+          <div className="bg-white p-8">
+            <Article key={data.article.id} {...data} />
+          </div>
+          <div id="comment-section" className="pt-8">
+            <CreateCommentWizard articleId={data.article.id} />
+            <CommentFeed articleId={data.article.id} />
           </div>
         </div>
-      </main>
+      </PageLayout>
     </>
   );
 };
@@ -197,4 +191,4 @@ export const getStaticPaths = () => {
   return { paths: [], fallback: "blocking" };
 };
 
-export default SinglePostPage;
+export default BlogPostPage;

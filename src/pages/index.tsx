@@ -12,6 +12,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { SideBar, TopBar } from "~/components/sidebar";
 import { ArticlePreview } from "~/components/article";
+import { PageLayout } from "~/components/layout";
 
 const CreateArticleWizard = () => {
   const user = useSession().data?.user;
@@ -101,27 +102,15 @@ const Home: NextPage = () => {
   const user = useSession().data?.user;
 
   return (
-    <>
-      <main>
-          <div>
-            <TopBar/>
-            <SideBar />
-          </div>
-        <div className="mt-8 mb-4 w-screen px-4 sm:ps-80 lg:text-justify">
-          <div className="flex h-screen">
-            <div className="h-screen w-full md:max-w-5xl">
-              <h1>Blog</h1>
-              {user && user.email == "blakesavage99@gmail.com" ? (
-                <CreateArticleWizard />
-              ) : (
-                <></>
-              )}
-              <ArticleFeed />
-            </div>
-          </div>
-        </div>
-      </main>
-    </>
+    <PageLayout>
+      <h1>Blog</h1>
+      {user && user.email == "blakesavage99@gmail.com" ? (
+        <CreateArticleWizard />
+      ) : (
+        <></>
+      )}
+      <ArticleFeed />
+    </PageLayout>
   );
 };
 
