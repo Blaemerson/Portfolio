@@ -3,19 +3,14 @@ import { SideBar, TopBar } from "./sidebar";
 
 export const PageLayout = (props: PropsWithChildren) => {
   return (
-      <main>
-        <div>
-          <TopBar />
-          <SideBar />
-        </div>
-        <div className="w-screen px-4 pt-8 sm:ps-56 sm:pt-0 lg:text-justify">
-          <div className="flex h-screen">
-            <div className="h-screen w-full md:max-w-5xl">
-              {props.children}
-            </div>
-          </div>
-        </div>
-      </main>
-
+    <main>
+      <div>
+        <TopBar />
+        <SideBar />
+      </div>
+      <div className="flex min-h-screen w-screen justify-center px-8 py-8 sm:ps-60 sm:pt-0 sm:text-justify">
+        <div className="md:max-w-6xl">{props.children}</div>
+      </div>
+    </main>
   );
-}
+};

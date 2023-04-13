@@ -1,14 +1,12 @@
 import { type NextPage } from "next";
 
-import { SideBar, TopBar } from "~/components/sidebar";
-import Link from "next/link";
 import { PageLayout } from "~/components/layout";
 
 const Home: NextPage = () => {
   return (
     <PageLayout>
       <h1>About Me</h1>
-      <div className="w-full bg-white p-4 shadow-xl sm:mt-0 md:max-w-4xl">
+      <div className="w-full bg-white p-4 shadow-xl sm:mt-0">
         <div className="text-md m-4 flex items-center gap-2 md:text-xl">
           <div>
             <h3>Who I Am</h3>

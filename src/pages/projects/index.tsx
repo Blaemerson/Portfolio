@@ -46,28 +46,30 @@ const Home: NextPage = () => {
     <PageLayout>
       <div>
         <h1>Projects</h1>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <ProjectCard
-            img="imgs/logo_onionskin_studio.png"
-            link="https://github.com/Blaemerson/Flipbook-Animator"
-            name="Onionskin Studio"
-            desc="A program written in java for creating simple animations by drawing frames."
-            tags={["Java", "JavaFX"]}
-          />
-          <ProjectCard
-            img="imgs/logo_chicken_tender.png"
-            link="https://github.com/Blaemerson/ChickenTender"
-            name="Chicken Tender"
-            desc="Android application for deciding where to eat as a group"
-            tags={["Android", "Java", "Google Maps"]}
-          />
-          <ProjectCard
-            img="imgs/logo_github.png"
-            link="https://github.com/Blaemerson/Portfolio"
-            name="My Personal Website"
-            desc="Source code for this website."
-            tags={["React", "Typescript", "NextJS"]}
-          />
+        <div className="w-full bg-white p-4 shadow-xl sm:mt-0">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <ProjectCard
+              img="imgs/logo_onionskin_studio.png"
+              link="https://github.com/Blaemerson/Flipbook-Animator"
+              name="Onionskin Studio"
+              desc="A program written in java for creating simple animations by drawing frames."
+              tags={["Java", "JavaFX"]}
+            />
+            <ProjectCard
+              img="imgs/logo_chicken_tender.png"
+              link="https://github.com/Blaemerson/ChickenTender"
+              name="Chicken Tender"
+              desc="Android application for deciding where to eat as a group"
+              tags={["Android", "Java", "Google Maps"]}
+            />
+            <ProjectCard
+              img="imgs/logo_github.png"
+              link="https://github.com/Blaemerson/Portfolio"
+              name="My Personal Website"
+              desc="Source code for this website."
+              tags={["React", "Typescript", "NextJS"]}
+            />
+          </div>
         </div>
       </div>
     </PageLayout>

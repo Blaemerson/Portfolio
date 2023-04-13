@@ -41,16 +41,16 @@ const CreateArticleWizard = () => {
   console.log(user);
 
   return (
-    <div className="flex">
+    <div>
       <img
         src={user.image!}
         alt="Profile Image"
         className="m-2 h-16 w-16 rounded-md "
       />
-      <div className="flex w-full flex-col">
+      <div className="flex flex-col">
         <textarea
           placeholder="Blog Post"
-          className="grow rounded-lg bg-white p-4 text-xl text-slate-800 disabled:bg-slate-300"
+          className="grow rounded-lg bg-gray-50 p-4 text-xl text-slate-800 hover:bg-white disabled:bg-slate-300"
           value={input}
           disabled={isPosting}
           onChange={(e) => setInput(e.target.value)}
@@ -90,7 +90,7 @@ const ArticleFeed = () => {
     );
 
   return (
-    <div className="pb-16">
+    <div>
       {[...data].map((fullArticle) => (
         <ArticlePreview key={fullArticle.article.id} {...fullArticle} />
       ))}
@@ -104,12 +104,14 @@ const Home: NextPage = () => {
   return (
     <PageLayout>
       <h1>Blog</h1>
+      <div className="w-full bg-white p-4 shadow-xl sm:mt-0">
       {user && user.email == "blakesavage99@gmail.com" ? (
         <CreateArticleWizard />
       ) : (
         <></>
       )}
       <ArticleFeed />
+      </div>
     </PageLayout>
   );
 };

@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   return (
     <PageLayout>
       <h1>Contact</h1>
-      <div className="w-full bg-white p-4 shadow-xl sm:mt-0 md:max-w-4xl">
+      <div className="w-full bg-white p-4 shadow-xl sm:mt-0">
         <div className="text-md m-4 flex items-center gap-2 md:text-xl">
           <div>
             <p className="text-slate-800">You can find me and my work here.</p>
