@@ -24,21 +24,19 @@ const Comment = (props: PostWithUser) => {
   return (
     <div
       key={comment.id}
-      className="text-md my-2 flex bg-white p-3 text-slate-700 sm:text-xl"
+      className="text-md flex bg-white p-3 text-slate-700 sm:text-xl"
     >
       <img
         className="me-4 flex h-12 w-12 rounded-md sm:h-16 sm:w-16"
         src={author.profilePicture!}
       />
       <div className="flex flex-col">
-        <div className="flex">
-          <Link href={`${author.id}`}>
-            <span className="italic text-slate-500">{author.name!}</span>
-            <span className="my-2 whitespace-pre-wrap italic text-slate-400">{`- ${dayjs(
-              comment.createdAt
-            ).fromNow()}`}</span>
-          </Link>
-        </div>
+        <Link href={`${author.id}`}>
+          <span className="italic text-slate-500">{author.name!}</span>
+          <span className="my-2 whitespace-pre-wrap italic text-slate-400">{`- ${dayjs(
+            comment.createdAt
+          ).fromNow()}`}</span>
+        </Link>
         <Link href={`/post/${comment.id}`}>
           <span className="flex text-slate-600">{comment.content}</span>
         </Link>
@@ -55,9 +53,8 @@ const CommentFeed = ({ articleId }: ArticleIdType) => {
 
   if (commentsLoading)
     return (
-      <div className="mb-16 flex flex-col items-center justify-center text-xl text-slate-700">
-        Loading Comments...<div className="py-4"></div>
-        <LoadingSpinner size={64} />
+      <div className="flex flex-col items-center justify-center text-xl text-slate-700">
+        <LoadingSpinner message={"Loading Comments"} size={64} />
       </div>
     );
 
@@ -102,7 +99,9 @@ const CreateCommentWizard = ({ articleId }: ArticleIdType) => {
   return (
     <div className="flex flex-col md:flex-row">
       <input
-        placeholder={user ? "Leave a comment" : "You have to be signed in to comment"}
+        placeholder={
+          user ? "Leave a comment" : "You have to be signed in to comment"
+        }
         className="text-md w-full rounded-lg bg-white p-4 text-slate-800 disabled:bg-slate-300 sm:text-xl"
         value={input}
         type="text"
@@ -133,7 +132,7 @@ const CreateCommentWizard = ({ articleId }: ArticleIdType) => {
         </div>
       )}
     </div>
-  );
+  )
 };
 
 const BlogPostPage: NextPage<{ id: string }> = ({ id }) => {
@@ -146,12 +145,16 @@ const BlogPostPage: NextPage<{ id: string }> = ({ id }) => {
         <title>{data.article.title}</title>
       </Head>
       <PageLayout>
-        <div className="h-screen w-full pt-8 md:max-w-4xl">
-          <div className="bg-white p-8">
+        <div className="w-full md:max-w-4xl">
+          <div className="mt-8 bg-white p-8">
             <Article key={data.article.id} {...data} />
           </div>
-          <div id="comment_section" className="pt-8">
+          <div className="my-4 flex h-10 items-center justify-center bg-gradient-to-b from-orange-500 from-10% via-orange-600 via-80% to-orange-500 dark:bg-orange-600 text-xl font-bold">
+            Comments
+          </div>
+          <div id="comment_section">
             <CreateCommentWizard articleId={data.article.id} />
+            <div className="h-2" />
             <CommentFeed articleId={data.article.id} />
           </div>
         </div>

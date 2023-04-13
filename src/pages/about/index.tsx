@@ -35,37 +35,6 @@ const Home: NextPage = () => {
               At any given time, I may be working on a number of side projects
               (this site is one of them!)
             </p>
-
-            <div className="p-2" />
-            <h3>What I Know</h3>
-
-            <div className="p-2" />
-            <p className="text-slate-800">
-              The following is a list of technologies I am proficient in:
-            </p>
-
-            <div className="p-2" />
-            <ul className="list-disc px-6 text-slate-800">
-              <li>Java: I developed several applications using Java.</li>
-              <div className="p-2" />
-              <li>
-                SQL: I helped design and implement a MySQL database for Kilgore
-                College.
-              </li>
-              <div className="p-2" />
-              <li>
-                Typescript + ReactJS: The tools I used to make this website! In
-                addition to these major tools, I also used NextJS, TRPC, and
-                Prisma to get things up and running. See the project&apos;s
-                <a
-                  className="text-blue-500"
-                  href="https://github.com/Blaemerson/Portfolio"
-                >
-                  {" Github page "}
-                </a>
-                to learn more.
-              </li>
-            </ul>
           </div>
         </div>
       </div>
