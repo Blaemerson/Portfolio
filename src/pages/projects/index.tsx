@@ -52,7 +52,7 @@ const Home: NextPage = () => {
               img="imgs/logo_onionskin_studio.png"
               link="https://github.com/Blaemerson/Flipbook-Animator"
               name="Onionskin Studio"
-              desc="A program written in java for creating simple animations by drawing frames."
+              desc="A program written in Java for creating simple animations by drawing frames."
               tags={["Java", "JavaFX"]}
             />
             <ProjectCard

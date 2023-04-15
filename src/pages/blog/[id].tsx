@@ -149,7 +149,7 @@ const BlogPostPage: NextPage<{ id: string }> = ({ id }) => {
           <div className="mt-8 bg-white p-8">
             <Article key={data.article.id} {...data} />
           </div>
-          <div className="my-4 flex h-10 items-center justify-center bg-gradient-to-b from-orange-500 from-10% via-orange-600 via-80% to-orange-500 dark:bg-orange-600 text-xl font-bold">
+          <div className="my-4 flex h-10 items-center rounded-md justify-center bg-gradient-to-b from-orange-400 from-10% via-orange-500 via-80% to-orange-500 dark:bg-orange-600 text-xl font-bold">
             Comments
           </div>
           <div id="comment_section">

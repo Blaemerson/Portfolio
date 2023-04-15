@@ -10,7 +10,6 @@ dayjs.extend(relativeTime);
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { SideBar, TopBar } from "~/components/sidebar";
 import { ArticlePreview } from "~/components/article";
 import { PageLayout } from "~/components/layout";
 
@@ -55,24 +54,25 @@ const CreateArticleWizard = () => {
           disabled={isPosting}
           onChange={(e) => setInput(e.target.value)}
         />
-        <div className="flex items-center justify-center">
-          {input !== "" && !isPosting && (
-            <button
-              className="flex h-16 w-32 items-center justify-center rounded-md bg-gradient-to-b from-slate-400 to-slate-500 text-3xl hover:from-slate-300 hover:to-slate-400"
-              onClick={() =>
-                mutate({ content: input, title: input.split("\n")[0]! })
-              }
-            >
-              Post
-            </button>
-          )}
-        </div>
         {isPosting && (
-          <div className="flex items-center justify-center">
+          <div className="m-4 flex items-center justify-center">
             <LoadingSpinner size={40} />
           </div>
         )}
       </div>
+      {input !== "" && !isPosting && (
+        <div className="m-4 flex flex-col items-center justify-center">
+          <button
+            disabled={isPosting}
+            className="flex h-12 w-24 items-center justify-center rounded-xl bg-gradient-to-b  from-red-400 to-red-500 text-xl hover:from-slate-300 hover:to-slate-400 disabled:bg-slate-300"
+            onClick={() =>
+              mutate({ content: input, title: input.split("\n")[0]! })
+            }
+          >
+            Post
+          </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -105,12 +105,12 @@ const Home: NextPage = () => {
     <PageLayout>
       <h1>Blog</h1>
       <div className="w-full bg-white p-4 shadow-xl sm:mt-0">
-      {user && user.email == "blakesavage99@gmail.com" ? (
-        <CreateArticleWizard />
-      ) : (
-        <></>
-      )}
-      <ArticleFeed />
+        {user && user.email == "blakesavage99@gmail.com" ? (
+          <CreateArticleWizard />
+        ) : (
+          <></>
+        )}
+        <ArticleFeed />
       </div>
     </PageLayout>
   );
