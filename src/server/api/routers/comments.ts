@@ -12,7 +12,6 @@ const filterUserForClient = (user: User) => {
   return {
     id: user.id,
     name: user.name,
-    username: user.username,
     profilePicture: user.image,
   };
 };
