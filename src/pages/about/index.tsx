@@ -22,7 +22,7 @@ const Home: NextPage = () => {
 
             <div className="p-2" />
             <p className="text-slate-800">
-              When I&apos;m not developing applications, I enjoy the literature, the outdoors,
+              When I&apos;m not developing applications, I enjoy literature, the outdoors,
               and spending time with my family.
             </p>
 

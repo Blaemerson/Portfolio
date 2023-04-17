@@ -5,44 +5,44 @@ export const TopBar = () => {
   const { data: sessionData } = useSession();
   return (
     <>
-      <div 
+      <div
         className="fixed left-0 top-0 right-0 flex items-center justify-center bg-white w-screen translate-y-0 transition-transform sm:-translate-y-full"
       >
         <div className="grid grid-cols-5 ">
-            <Link
-              href={`/about/`}
-              className="justify-center flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-            >
+          <Link
+            href={`/about/`}
+            className="justify-center flex items-center rounded-lg p-2 text-gray-900"
+          >
 
-              <span>About</span>
-            </Link>
-            <Link
-              href={`/contact/`}
-              className="justify-center flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-            >
-              <span>Contact</span>
-            </Link>
-            <Link
-              href={`/`}
-              className="justify-center flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-            >
-              <span>Blog</span>
-            </Link>
-            <Link
-              href={`/projects`}
-              className="justify-center flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-            >
-              <span>Projects</span>
-            </Link>
-            <a
-              href="#"
-              onClick={sessionData ? () => void signOut() : () => void signIn()}
-              className="justify-center flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-            >
-              <span>
-                {sessionData ? "Sign Out" : "Sign In"}
-              </span>
-            </a>
+            <span>About</span>
+          </Link>
+          <Link
+            href={`/contact/`}
+            className="justify-center flex items-center rounded-lg p-2 text-gray-900"
+          >
+            <span>Contact</span>
+          </Link>
+          <Link
+            href={`/`}
+            className="justify-center flex items-center rounded-lg p-2 text-gray-900"
+          >
+            <span>Blog</span>
+          </Link>
+          <Link
+            href={`/projects`}
+            className="justify-center flex items-center rounded-lg p-2 text-gray-900"
+          >
+            <span>Projects</span>
+          </Link>
+          <a
+            href="#"
+            onClick={sessionData ? () => void signOut() : () => void signIn()}
+            className="justify-center flex items-center rounded-lg p-2 text-gray-900"
+          >
+            <span>
+              {sessionData ? "Sign Out" : "Sign In"}
+            </span>
+          </a>
         </div>
       </div>
     </>
