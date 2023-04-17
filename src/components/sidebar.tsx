@@ -6,38 +6,38 @@ export const TopBar = () => {
   return (
     <>
       <div
-        className="fixed left-0 top-0 right-0 flex items-center justify-center bg-white w-screen translate-y-0 transition-transform sm:-translate-y-full"
+        className="fixed left-0 top-0 right-0 flex items-center justify-center bg-gray-50  dark:bg-gray-800 w-screen translate-y-0 transition-transform sm:-translate-y-full"
       >
         <div className="grid grid-cols-5 ">
           <Link
             href={`/about/`}
-            className="justify-center flex items-center rounded-lg p-2 text-gray-900"
+            className="justify-center flex items-center rounded-lg p-2 m-1"
           >
 
             <span>About</span>
           </Link>
           <Link
             href={`/contact/`}
-            className="justify-center flex items-center rounded-lg p-2 text-gray-900"
+            className="justify-center flex items-center rounded-lg p-2 m-1"
           >
             <span>Contact</span>
           </Link>
           <Link
             href={`/`}
-            className="justify-center flex items-center rounded-lg p-2 text-gray-900"
+            className="justify-center flex items-center rounded-lg p-2 m-1"
           >
             <span>Blog</span>
           </Link>
           <Link
             href={`/projects`}
-            className="justify-center flex items-center rounded-lg p-2 text-gray-900"
+            className="justify-center flex items-center rounded-lg p-2 m-1"
           >
             <span>Projects</span>
           </Link>
           <a
             href="#"
             onClick={sessionData ? () => void signOut() : () => void signIn()}
-            className="justify-center flex items-center rounded-lg p-2 text-gray-900"
+            className="justify-center flex items-center rounded-lg p-2 m-1"
           >
             <span>
               {sessionData ? "Sign Out" : "Sign In"}
@@ -63,11 +63,11 @@ export const SideBar = () => {
             <li>
               <Link
                 href={`/about/`}
-                className="flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                className="flex items-center rounded-lg p-2"
               >
                 <svg
                   aria-hidden="true"
-                  className="h-6 w-6 flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                  className="h-6 w-6 flex-shrink-0"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -85,11 +85,11 @@ export const SideBar = () => {
             <li>
               <Link
                 href={`/contact/`}
-                className="flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                className="flex items-center rounded-lg p-2"
               >
                 <svg
                   aria-hidden="true"
-                  className="h-6 w-6 flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                  className="h-6 w-6 flex-shrink-0"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -103,11 +103,11 @@ export const SideBar = () => {
             <li>
               <Link
                 href={`/`}
-                className="flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                className="flex items-center rounded-lg p-2"
               >
                 <svg
                   aria-hidden="true"
-                  className="h-6 w-6 flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                  className="h-6 w-6 flex-shrink-0"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -120,11 +120,11 @@ export const SideBar = () => {
             <li>
               <Link
                 href={`/projects`}
-                className="flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                className="flex items-center rounded-lg p-2"
               >
                 <svg
                   aria-hidden="true"
-                  className="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                  className="h-6 w-6 flex-shrink-0"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -141,11 +141,11 @@ export const SideBar = () => {
                 onClick={
                   sessionData ? () => void signOut() : () => void signIn()
                 }
-                className="flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                className="flex items-center rounded-lg p-2"
               >
                 <svg
                   aria-hidden="true"
-                  className="h-6 w-6 flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                  className="h-6 w-6 flex-shrink-0"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"

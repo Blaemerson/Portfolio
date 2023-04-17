@@ -5,9 +5,5 @@ export default {
   plugins: [
     require('@tailwindcss/typography')
   ],
-  variants: {
-      extend: {
-          display: ["group-hover"],
-      },
-  },
+  darkMode: 'class',
 } satisfies Config;

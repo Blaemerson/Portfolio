@@ -41,7 +41,7 @@ export const ArticlePreview = (props: ArticleWithUser) => {
       <Link href={`/blog/${article.id}`}>
         <div
           key={article.id}
-          className="text-md items-between my-4 flex bg-gray-100 text-slate-700 transition duration-200 ease-in-out hover:bg-white hover:shadow-xl md:text-xl"
+          className="article_block"
         >
           <img
             className="m-2 h-12 w-12 md:h-16 md:w-16"
@@ -108,18 +108,18 @@ export const Article = (props: ArticleWithUser) => {
   return (
     <div
       key={props.article.id}
-      className="text-md flex text-slate-700 sm:text-xl"
+      className="article"
     >
       <div className="flex items-center">
         <div className="flex flex-col">
           <div className="flex">
-            <span className="justify-center pb-4 italic text-slate-500">{`Author: ${props
+            <span className="justify-center pb-4 italic">{`Author: ${props
               .author.name!}`}</span>
-            <span className="whitespace-pre-wrap italic text-slate-400">{` - ${dayjs(
+            <span className="whitespace-pre-wrap italic">{` - ${dayjs(
               props.article.createdAt
             ).fromNow()}`}</span>
           </div>
-          <ReactMarkdown className="text-md whitespace-pre-wrap text-gray-800 sm:text-justify sm:text-xl">
+          <ReactMarkdown className="text-md whitespace-pre-wrap sm:text-justify sm:text-xl">
             {props.article.content}
           </ReactMarkdown>
         </div>

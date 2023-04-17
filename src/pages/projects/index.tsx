@@ -10,7 +10,7 @@ const ProjectCard = (props: {
 }) => {
   return (
     <a href={props.link}>
-      <div className="text-md h-full bg-gray-100 transition duration-200 ease-in-out hover:bg-white hover:shadow-xl sm:text-xl">
+      <div className="">
         <div>
           <div className="p-4">
             {props.img ? (
@@ -22,11 +22,11 @@ const ProjectCard = (props: {
               <></>
             )}
             <div className="p-2 text-xl font-bold underline">{props.name}</div>
-            <div className="p-2 leading-normal text-slate-600">
+            <div className="p-2 leading-normal">
               {props.desc}
             </div>
-            <div className="pb-2 ps-2 leading-normal text-slate-600">
-              <ul className="list-disc px-4 text-slate-500">
+            <div className="pb-2 ps-2 leading-normal">
+              <ul className="list-disc px-4">
                 {props.tags ? (
                   props.tags.map((tag, i) => <li key={`${i}`}>{tag}</li>)
                 ) : (
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
     <PageLayout>
       <div>
         <h1>Projects</h1>
-        <div className="w-full bg-white p-4 shadow-xl sm:mt-0">
+        <div className="article">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <ProjectCard
               img="imgs/logo_onionskin_studio.png"

@@ -24,22 +24,20 @@ const Comment = (props: PostWithUser) => {
   return (
     <div
       key={comment.id}
-      className="text-md flex bg-white p-3 text-slate-700 sm:text-xl"
+      className="article"
     >
       <img
         className="me-4 flex h-12 w-12 rounded-md sm:h-16 sm:w-16"
         src={author.profilePicture!}
       />
       <div className="flex flex-col">
-        <Link href={`${author.id}`}>
-          <span className="italic text-slate-500">{author.name!}</span>
-          <span className="my-2 whitespace-pre-wrap italic text-slate-400">{`- ${dayjs(
+        <div>
+          <span className="italic">{author.name!}</span>
+          <span className="my-2 whitespace-pre-wrap italic">{` - ${dayjs(
             comment.createdAt
           ).fromNow()}`}</span>
-        </Link>
-        <Link href={`/post/${comment.id}`}>
-          <span className="flex text-slate-600">{comment.content}</span>
-        </Link>
+        </div>
+        <span className="flex">{comment.content}</span>
       </div>
     </div>
   );
@@ -146,7 +144,7 @@ const BlogPostPage: NextPage<{ id: string }> = ({ id }) => {
       </Head>
       <PageLayout>
         <div className="w-full md:max-w-4xl">
-          <div className="mt-8 bg-white p-8">
+          <div className="mt-8 p-8">
             <Article key={data.article.id} {...data} />
           </div>
           <div className="my-4 flex h-10 items-center rounded-md justify-center bg-gradient-to-b from-orange-400 from-10% via-orange-500 via-80% to-orange-500 dark:bg-orange-600 text-xl font-bold">

@@ -2,13 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-slate-200 text-slate-100;
-  font-family: 'Montserrat', sans-serif;
-  /* @apply bg-[url('/imgs/dot-grid.webp')]; */
-  /* @apply bg-repeat bg-center bg-fixed; */
+.article {
+  @apply text-sm flex sm:text-xl w-full dark:bg-slate-800 dark:text-slate-300 text-slate-700 bg-white p-4 shadow-xl sm:mt-0
 }
 
+.article_block {
+  @apply flex transition duration-200 ease-in-out dark:bg-slate-700 bg-slate-100 hover:bg-white dark:hover:bg-slate-600 hover:shadow-xl md:text-xl
+}
 
 h1 {
     /* font-family: 'Montserrat', sans-serif; */
@@ -17,7 +17,8 @@ h1 {
     Line-height: 1.5;
     --tw-text-opacity: 1;
     /* @apply text-orange-500; */
-    @apply bg-clip-text text-transparent bg-gradient-to-b  from-red-500 to-orange-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-b  from-red-400 to-orange-400;
+    @apply dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-b dark:from-red-500 dark:to-orange-500;
     /* color: rgb(51 65 85 / var(--tw-text-opacity)); */
 }
 
@@ -26,7 +27,8 @@ h2 {
     font-size: 3rem;
     font-weight: bold;
     Line-height: 1.4;
-    @apply bg-clip-text text-transparent bg-gradient-to-b  from-red-500 to-orange-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-b  from-red-400 to-orange-400;
+    @apply dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-b dark:from-red-500 dark:to-orange-500;
     --tw-text-opacity: 1;
     /* color: rgb(51 65 85 / var(--tw-text-opacity)); */
 }
@@ -36,7 +38,8 @@ h3 {
     font-size: 2rem;
     font-weight: bold;
     Line-height: 1.3;
-    @apply bg-clip-text text-transparent bg-gradient-to-b  from-red-500 to-orange-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-b  from-red-400 to-orange-400;
+    @apply dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-b dark:from-red-500 dark:to-orange-500;
     --tw-text-opacity: 1;
     /* color: rgb(51 65 85 / var(--tw-text-opacity)); */
 }
@@ -45,13 +48,19 @@ h4 {
     font-size: 1rem;
     font-weight: bold;
     Line-height: 1.2;
-    @apply bg-clip-text text-transparent bg-gradient-to-b  from-red-500 to-orange-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-b  from-red-400 to-orange-400;
+    @apply dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-b dark:from-red-500 dark:to-orange-500;
     --tw-text-opacity: 1;
     /* color: rgb(51 65 85 / var(--tw-text-opacity)); */
 }
 
 a {
-  @apply transition duration-200 ease-in-out hover:text-orange-400;
-  @apply text-slate-700;
+  @apply transition duration-200 ease-in-out hover:text-orange-400 hover:shadow-md;
+  @apply dark:text-white dark:transition dark:duration-200 dark:ease-in-out dark:hover:text-orange-400;
+  @apply hover:bg-white dark:hover:bg-slate-900;
   /* @apply p-1 text-blue-500 hover:text-blue-300 */
+}
+
+svg {
+  @apply dark:fill-slate-200;
 }

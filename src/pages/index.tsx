@@ -49,7 +49,7 @@ const CreateArticleWizard = () => {
       <div className="flex flex-col">
         <textarea
           placeholder="Blog Post"
-          className="grow rounded-lg bg-gray-50 p-4 text-xl text-slate-800 hover:bg-white disabled:bg-slate-300"
+          className="grow rounded-lg my-4 bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-slate-200 p-4 text-xl text-slate-800 hover:bg-white disabled:bg-slate-300"
           value={input}
           disabled={isPosting}
           onChange={(e) => setInput(e.target.value)}
@@ -104,7 +104,7 @@ const Home: NextPage = () => {
   return (
     <PageLayout>
       <h1>Blog</h1>
-      <div className="w-full bg-white p-4 shadow-xl sm:mt-0">
+      <div className="flex-col article">
         {user && user.email == "blakesavage99@gmail.com" ? (
           <CreateArticleWizard />
         ) : (
