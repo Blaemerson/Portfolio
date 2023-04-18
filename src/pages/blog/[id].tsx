@@ -143,8 +143,8 @@ const BlogPostPage: NextPage<{ id: string }> = ({ id }) => {
         <title>{data.article.title}</title>
       </Head>
       <PageLayout>
-        <div className="w-full md:max-w-4xl">
-          <div className="mt-8 p-8">
+        <div className="mt-20">
+          <div className="">
             <Article key={data.article.id} {...data} />
           </div>
           <div className="my-4 flex h-10 items-center rounded-md justify-center bg-gradient-to-b from-orange-400 from-10% via-orange-500 via-80% to-orange-500 dark:bg-orange-600 text-xl font-bold">
