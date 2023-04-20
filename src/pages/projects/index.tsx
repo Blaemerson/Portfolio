@@ -1,4 +1,5 @@
 import { type NextPage } from "next";
+import Image from "next/image";
 import { PageLayout } from "~/components/layout";
 
 const ProjectCard = (props: {
@@ -14,10 +15,18 @@ const ProjectCard = (props: {
         <div>
           <div className="p-4">
             {props.img ? (
-              <img
-                className="flex h-64 w-full items-center justify-center rounded-xl bg-white object-cover p-2"
-                src={props.img}
-              />
+              // <img
+              //   className="flex h-64 w-full items-center justify-center rounded-xl bg-white object-cover p-2"
+              //   src={props.img}
+              // />
+            <Image
+              src={props.img}
+              className="flex h-64 w-full items-center justify-center rounded-xl bg-white object-cover p-2"
+              alt="Your Image"
+              width={300}
+              height={400}
+            />
+
             ) : (
               <></>
             )}
@@ -49,21 +58,21 @@ const Home: NextPage = () => {
         <div className="article">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <ProjectCard
-              img="imgs/logo_onionskin_studio.png"
+              img="/imgs/logo_onionskin_studio.png"
               link="https://github.com/Blaemerson/Flipbook-Animator"
               name="Onionskin Studio"
               desc="A program written in Java for creating simple animations by drawing frames."
               tags={["Java", "JavaFX"]}
             />
             <ProjectCard
-              img="imgs/logo_chicken_tender.png"
+              img="/imgs/logo_chicken_tender.png"
               link="https://github.com/Blaemerson/ChickenTender"
               name="Chicken Tender"
               desc="Android application for deciding where to eat as a group"
               tags={["Android", "Java", "Google Maps"]}
             />
             <ProjectCard
-              img="imgs/logo_github.png"
+              img="/imgs/logo_github.png"
               link="https://github.com/Blaemerson/Portfolio"
               name="My Personal Website"
               desc="Source code for this website."
