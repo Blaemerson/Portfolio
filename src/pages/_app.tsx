@@ -24,7 +24,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       </Head>
       <Toaster />
       <div className={`flex ${darkToggle ? 'dark' : ''}`}>
-        <button className={`absolute top-14 sm:top-8 right-12 rounded-full w-20 h-20 ${!darkToggle ? 'bg-slate-800 text-white' : ''} ${darkToggle ? 'bg-slate-200' : ''}`} onClick={() => setDarkToggle(!darkToggle)}>
+        <button className={`fixed bottom-8 right-8 rounded-full w-20 h-20 ${!darkToggle ? 'bg-slate-800 text-white' : ''} ${darkToggle ? 'bg-slate-200' : ''}`} onClick={() => setDarkToggle(!darkToggle)}>
           <div className="p-2 justify-center items-center">
             {darkToggle ?
               "dark"
