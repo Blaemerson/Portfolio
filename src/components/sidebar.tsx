@@ -6,7 +6,7 @@ export const TopBar = () => {
   return (
     <>
       <div
-        className="fixed left-0 top-0 right-0 flex items-center justify-center bg-gray-50  dark:bg-gray-800 w-screen translate-y-0 transition-transform sm:-translate-y-full"
+        className="fixed left-0 top-0 right-0 flex items-center justify-center bg-gray-50 dark:bg-[#1e1e22] w-screen translate-y-0 transition-transform md:-translate-y-full"
       >
         <div className="grid grid-cols-5 ">
           <Link
@@ -55,10 +55,10 @@ export const SideBar = () => {
     <>
       <aside
         id="default-sidebar"
-        className="fixed left-0 top-0 z-40 h-screen w-48 -translate-x-full transition-transform sm:translate-x-0"
+        className="fixed left-0 top-0 z-40 h-screen w-48 -translate-x-full transition-transform md:translate-x-0"
         aria-label="Sidebar"
       >
-        <div className="h-full overflow-y-auto bg-gray-50 px-3 py-4 dark:bg-gray-800">
+        <div className="h-full overflow-y-auto bg-gray-50 px-3 py-4 dark:bg-[#1e1e22]">
           <ul className="space-y-2 font-medium">
             <li>
               <Link

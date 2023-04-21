@@ -1,5 +1,5 @@
 import ReactMarkdown from "react-markdown";
-import { RouterOutputs, api } from "~/utils/api";
+import { type RouterOutputs, api } from "~/utils/api";
 import Link from "next/link";
 
 import { toast } from "react-hot-toast";
@@ -49,7 +49,7 @@ export const ArticlePreview = (props: ArticleWithUser) => {
           />
           <div className="w-full m-4">
             <div className="w-full">
-              <span className="whitespace-pre-wrap italic text-slate-400">{`${author.name!} - ${dayjs(
+              <span className="whitespace-pre-wrap italic text-slate-400">{`${author.name ?? ""} - ${dayjs(
                 article.createdAt
               ).fromNow()}`}</span>
             </div>
@@ -114,7 +114,7 @@ export const Article = (props: ArticleWithUser) => {
         <div className="flex flex-col">
           <div className="flex">
             <span className="justify-center pb-4 italic">{`Author: ${props
-              .author.name!}`}</span>
+              .author.name ?? "name"}`}</span>
             <span className="whitespace-pre-wrap italic">{` - ${dayjs(
               props.article.createdAt
             ).fromNow()}`}</span>

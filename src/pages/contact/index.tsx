@@ -29,7 +29,7 @@ const Home: NextPage = () => {
             <ul>
               <li>
                 <a
-                  className="flex bg-slate-200 dark:bg-slate-700 items-center w-fit rounded-xl p-2 cursor-pointer"
+                  className="flex bg-slate-200 dark:bg-[#3c3c3f] items-center w-fit rounded-xl p-2 cursor-pointer"
                   onClick={() =>
                     void writeToClipboard("blakesavage99@gmail.com")
                   }
@@ -47,7 +47,7 @@ const Home: NextPage = () => {
               </li>
               <div className="p-2" />
               <li className="">
-                <a className="flex items-center bg-slate-200 dark:bg-slate-700 w-fit rounded-xl p-2" 
+                <a className="flex items-center bg-slate-200 dark:bg-[#3c3c3f] w-fit rounded-xl p-2" 
                   href="https://www.linkedin.com/in/blake-savage-492140253/">
                   <div className="me-2 h-6 w-6">
                     <svg
@@ -62,7 +62,7 @@ const Home: NextPage = () => {
               </li>
               <div className="p-2" />
               <li className="">
-                <a className="flex items-center bg-slate-200 dark:bg-slate-700 w-fit rounded-xl p-2" href="https://github.com/Blaemerson">
+                <a className="flex items-center bg-slate-200 dark:bg-[#3c3c3f] w-fit rounded-xl p-2" href="https://github.com/Blaemerson">
                   <div className="me-2 h-6 w-6">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
