@@ -7,7 +7,7 @@
 }
 
 .article_block {
-  @apply flex transition duration-200 ease-in-out hover:bg-white dark:hover:bg-[#3c3c3f] hover:shadow-xl md:text-xl
+  @apply flex transition duration-200 ease-in-out bg-gray-50 dark:bg-[#28282a] hover:bg-white dark:hover:bg-[#3c3c3f] hover:shadow-xl md:text-xl
 }
 
 h1 {
