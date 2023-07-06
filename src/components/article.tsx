@@ -1,6 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import { type RouterOutputs, api } from "~/utils/api";
 import Link from "next/link";
+import Image from "next/image";
 
 import { toast } from "react-hot-toast";
 
@@ -39,25 +40,25 @@ export const ArticlePreview = (props: ArticleWithUser) => {
   return (
     <div>
       <Link href={`/blog/${article.id}`}>
-        <div
-          key={article.id}
-          className="article_block"
-        >
-          <img
-            className="m-2 h-12 w-12 md:h-16 md:w-16"
-            src={author.profilePicture!}
+        <div key={article.id} className="article_block">
+          <Image
+            src={author.profilePicture ?? ""}
+            alt="Author Pic"
+            className="m-2 h-16 w-16 rounded-md"
+            width={64}
+            height={64}
           />
-          <div className="w-full m-4">
+          <div className="m-4 w-full">
             <div className="w-full">
-              <span className="whitespace-pre-wrap italic text-slate-400">{`${author.name ?? ""} - ${dayjs(
-                article.createdAt
-              ).fromNow()}`}</span>
+              <span className="whitespace-pre-wrap italic text-slate-400">{`${
+                author.name ?? ""
+              } - ${dayjs(article.createdAt).fromNow()}`}</span>
             </div>
             <ReactMarkdown>{`${preview}`}</ReactMarkdown>
           </div>
           <span
             id="comment_count"
-            className="flex items-end me-2 hover:text-blue-400"
+            className="me-2 flex items-end hover:text-blue-400"
           >
             <Link scroll={false} href={`/blog/${article.id}#comment_section`}>
               <span className="m-2 flex gap-x-1 font-bold ">
@@ -106,15 +107,13 @@ export const ArticlePreview = (props: ArticleWithUser) => {
 
 export const Article = (props: ArticleWithUser) => {
   return (
-    <div
-      key={props.article.id}
-      className="article"
-    >
+    <div key={props.article.id} className="article">
       <div className="flex items-center">
         <div className="flex flex-col">
           <div className="flex">
-            <span className="justify-center pb-4 italic">{`Author: ${props
-              .author.name ?? "name"}`}</span>
+            <span className="justify-center pb-4 italic">{`Author: ${
+              props.author.name ?? "name"
+            }`}</span>
             <span className="whitespace-pre-wrap italic">{` - ${dayjs(
               props.article.createdAt
             ).fromNow()}`}</span>

@@ -1,4 +1,5 @@
 import { GetStaticProps, type NextPage } from "next";
+import Image from "next/image";
 import { RouterOutputs, api } from "~/utils/api";
 
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
@@ -22,17 +23,17 @@ type PostWithUser = RouterOutputs["comments"]["getAll"][number];
 const Comment = (props: PostWithUser) => {
   const { comment, author } = props;
   return (
-    <div
-      key={comment.id}
-      className="article"
-    >
-      <img
-        className="me-4 flex h-12 w-12 rounded-md sm:h-16 sm:w-16"
-        src={author.profilePicture!}
+    <div key={comment.id} className="article">
+      <Image
+        src={author.profilePicture ?? ""}
+        alt="Commenter Picture"
+        className="m-2 h-16 w-16 rounded-md"
+        width={64}
+        height={64}
       />
       <div className="flex flex-col">
         <div>
-          <span className="italic">{author.name!}</span>
+          <span className="italic">{author.name ?? "Anonymous"}</span>
           <span className="my-2 whitespace-pre-wrap italic">{` - ${dayjs(
             comment.createdAt
           ).fromNow()}`}</span>
@@ -130,7 +131,7 @@ const CreateCommentWizard = ({ articleId }: ArticleIdType) => {
         </div>
       )}
     </div>
-  )
+  );
 };
 
 const BlogPostPage: NextPage<{ id: string }> = ({ id }) => {
@@ -147,7 +148,7 @@ const BlogPostPage: NextPage<{ id: string }> = ({ id }) => {
           <div className="">
             <Article key={data.article.id} {...data} />
           </div>
-          <div className="my-4 flex h-10 items-center rounded-md justify-center bg-gradient-to-b from-orange-400 from-10% via-orange-500 via-80% to-orange-500 dark:bg-orange-600 text-xl font-bold">
+          <div className="my-4 flex h-10 items-center justify-center rounded-md bg-gradient-to-b from-orange-400 from-10% via-orange-500 via-80% to-orange-500 text-xl font-bold dark:bg-orange-600">
             Comments
           </div>
           <div id="comment_section">
