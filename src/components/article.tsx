@@ -11,6 +11,43 @@ import { LoadingSpinner } from "./loading";
 import { useSession } from "next-auth/react";
 dayjs.extend(relativeTime);
 
+interface Data {
+  title: string;
+  id: string;
+}
+
+export const RecentArticles = () => {
+  const { data, isLoading: articlesLoading } = api.articles.getAll.useQuery();
+  if (articlesLoading) return <></>;
+  if (!data)
+    return (
+      <div className="flex justify-center p-10 text-2xl text-red-500">
+        Something went wrong...
+      </div>
+    );
+
+  const headlines: Data[] = data.map((entry) => {
+    return { title: entry.article.title, id: entry.article.id };
+  });
+
+  return (
+    <div className="w-56 flex-col">
+      <div className="orange_bar_sep">
+        Recent
+      </div>
+      {[...headlines].map((entry) => (
+        <Link key={entry.id} href={`/blog/${entry.id}`}>
+          <div className="article_preview p-4 ">
+            {entry.title.replaceAll("#", "")}
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+
+  return <div className="h-60 w-60 bg-black">Hello there</div>;
+};
+
 type ArticleWithUser = RouterOutputs["articles"]["getAll"][number];
 export const ArticlePreview = (props: ArticleWithUser) => {
   const { article, author } = props;

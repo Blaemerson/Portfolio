@@ -10,7 +10,7 @@ import SuperJSON from "superjson";
 import Head from "next/head";
 import { LoadingSpinner } from "~/components/loading";
 import Link from "next/link";
-import { Article } from "~/components/article";
+import { Article, RecentArticles } from "~/components/article";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -145,10 +145,11 @@ const BlogPostPage: NextPage<{ id: string }> = ({ id }) => {
       </Head>
       <PageLayout>
         <div className="mt-20">
-          <div className="">
+          <div className="flex">
             <Article key={data.article.id} {...data} />
+        <RecentArticles />
           </div>
-          <div className="my-4 flex h-10 items-center justify-center rounded-md bg-gradient-to-b from-orange-400 from-10% via-orange-500 via-80% to-orange-500 text-xl font-bold dark:bg-orange-600">
+          <div className="orange_bar_sep">
             Comments
           </div>
           <div id="comment_section">

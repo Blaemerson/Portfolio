@@ -69,14 +69,14 @@ const Home: NextPage = () => {
               link="https://github.com/Blaemerson/ChickenTender"
               name="Chicken Tender"
               desc="Android application for deciding where to eat as a group"
-              tags={["Android", "Java", "Google Maps"]}
+              tags={["Android", "Java", "Google Maps API"]}
             />
             <ProjectCard
               img="/imgs/logo_github.png"
               link="https://github.com/Blaemerson/Portfolio"
               name="My Personal Website"
               desc="Source code for this website."
-              tags={["React", "Typescript", "NextJS"]}
+              tags={["React", "Typescript", "NextJS", "Prisma", "tRPC"]}
             />
           </div>
         </div>
