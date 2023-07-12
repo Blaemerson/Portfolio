@@ -3,86 +3,85 @@ import Image from "next/image";
 import { PageLayout } from "~/components/layout";
 
 const ProjectCard = (props: {
-  name: string;
-  img?: string;
-  link?: string;
-  desc?: string;
-  tags?: string[];
+    name: string;
+    img?: string;
+    link?: string;
+    desc?: string;
+    tags?: string[];
 }) => {
-  return (
-    <a href={props.link}>
-      <div className="">
-        <div>
-          <div className="p-4">
-            {props.img ? (
-              // <img
-              //   className="flex h-64 w-full items-center justify-center rounded-xl bg-white object-cover p-2"
-              //   src={props.img}
-              // />
-            <Image
-              src={props.img}
-              className="flex h-64 w-full items-center justify-center rounded-xl bg-white object-cover p-2"
-              alt="Your Image"
-              width={300}
-              height={400}
-            />
+    return (
+        <a href={props.link}>
+            <div className="border-y-2 border-x-4 border-gray dark:border-gray-800">
+                <div className="flex p-2">
+                    {props.img ? (
+                        <Image
+                            src={props.img}
+                            className="flex h-32 w-32 items-center justify-center rounded-xl bg-white object-cover p-2"
+                            alt="Your Image"
+                            width={300}
+                            height={400}
+                        />
 
-            ) : (
-              <></>
-            )}
-            <div className="p-2 text-xl font-bold underline">{props.name}</div>
-            <div className="p-2 leading-normal">
-              {props.desc}
+                    ) : (
+                        <></>
+                    )}
+                    <div className="p-2">
+                        <div className="p-2 text-xl font-bold underline">{props.name}</div>
+                        <div className="px-2">{props.desc}</div>
+                        <div className="flex px-6">
+                            {props.tags ? (
+                                props.tags.map((tag, i) => <li className="mx-6" key={`${i}`}>{tag}</li>)
+                            ) : (
+                                <></>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="pb-2 ps-2 leading-normal">
-              <ul className="list-disc px-4">
-                {props.tags ? (
-                  props.tags.map((tag, i) => <li key={`${i}`}>{tag}</li>)
-                ) : (
-                  <></>
-                )}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </a>
-  );
+        </a>
+    );
 };
 
 const Home: NextPage = () => {
-  return (
-    <PageLayout>
-      <div>
-        <h1>Projects</h1>
-        <div className="article">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <ProjectCard
-              img="/imgs/logo_onionskin_studio.png"
-              link="https://github.com/Blaemerson/Flipbook-Animator"
-              name="Onionskin Studio"
-              desc="A program written in Java for creating simple animations by drawing frames."
-              tags={["Java", "JavaFX"]}
-            />
-            <ProjectCard
-              img="/imgs/logo_chicken_tender.png"
-              link="https://github.com/Blaemerson/ChickenTender"
-              name="Chicken Tender"
-              desc="Android application for deciding where to eat as a group"
-              tags={["Android", "Java", "Google Maps API"]}
-            />
-            <ProjectCard
-              img="/imgs/logo_github.png"
-              link="https://github.com/Blaemerson/Portfolio"
-              name="My Personal Website"
-              desc="Source code for this website."
-              tags={["React", "Typescript", "NextJS", "Prisma", "tRPC"]}
-            />
-          </div>
-        </div>
-      </div>
-    </PageLayout>
-  );
+    return (
+        <PageLayout>
+            <div>
+                <h1>Projects</h1>
+                <div className="bg-slate-50">
+                    <div className="flex flex-col">
+                        <ProjectCard
+                            img="/imgs/logo_onionskin_studio.png"
+                            link="https://github.com/Blaemerson/Flipbook-Animator"
+                            name="Onionskin Studio"
+                            desc="A program written in Java for creating simple animations by drawing frames."
+                            tags={["Java", "JavaFX"]}
+                        />
+                        <ProjectCard
+                            img="/imgs/logo_chicken_tender.png"
+                            link="https://github.com/Blaemerson/ChickenTender"
+                            name="Chicken Tender"
+                            desc="Android application for deciding where to eat as a group"
+                            tags={["Android", "Java", "Google Maps API"]}
+                        />
+                        <ProjectCard
+                            img="/imgs/logo_github.png"
+                            link="https://github.com/Blaemerson/Portfolio"
+                            name="My Personal Website"
+                            desc="Source code for this website."
+                            tags={["React", "Typescript", "NextJS", "Prisma", "tRPC"]}
+                        />
+                        <ProjectCard
+                            img="/imgs/logo_github.png"
+                            link="https://github.com/Blaemerson/sfml-mario"
+                            name="SFML Mario (Tentative)"
+                            desc="2D platformer imitating Super Mario Bros physics and style"
+                            tags={["C++", "SFML"]}
+                        />
+                    </div>
+                </div>
+            </div>
+        </PageLayout>
+    );
 };
 
 export default Home;

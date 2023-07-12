@@ -63,9 +63,9 @@ h4 {
 }
 
 a {
-  @apply transition duration-200 ease-in-out hover:text-orange-400 hover:shadow-md;
-  @apply dark:text-white dark:transition dark:duration-200 dark:ease-in-out dark:hover:text-orange-400;
-  @apply hover:bg-white dark:hover:bg-[#4d4d4f];
+  @apply transition duration-100 ease-in-out ;
+  @apply dark:bg-[#1c1c1d] dark:text-white dark:transition dark:duration-100 ;
+  @apply hover:bg-white dark:hover:bg-[#4d4d4f] hover:text-orange-600 dark:hover:text-orange-400;
   /* @apply p-1 text-blue-500 hover:text-blue-300 */
 }
 
