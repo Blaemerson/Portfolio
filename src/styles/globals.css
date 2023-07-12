@@ -7,7 +7,7 @@
 }
 
 .article_block {
-  @apply flex transition duration-100 ease-in-out bg-gray-50 dark:bg-[#28282a] hover:bg-white dark:hover:bg-[#3c3c3f] border-gray-200 dark:border-gray-900 border-y-2 border-x-4 md:text-xl
+  @apply flex transition duration-100 ease-in-out bg-gray-100 dark:bg-[#28282a] hover:bg-white dark:hover:bg-[#3c3c3f] border-gray-200 dark:border-gray-900 border-y-2 border-x-4 md:text-xl
 }
 
 .orange_bar_sep {

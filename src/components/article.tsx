@@ -80,9 +80,7 @@ export const ArticlePreview = (props: ArticleWithUser) => {
         <div key={article.id} className="article_block">
           <div className="m-4 w-full">
             <div className="w-full">
-              <span className="whitespace-pre-wrap italic text-slate-400">{`${
-                author.name ?? ""
-              } - ${dayjs(article.createdAt).fromNow()}`}</span>
+              <span className="whitespace-pre-wrap italic text-slate-400">{`${dayjs(article.createdAt).fromNow()}`}</span>
             </div>
             <ReactMarkdown>{`${preview}`}</ReactMarkdown>
           </div>
