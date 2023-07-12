@@ -11,7 +11,7 @@ const ProjectCard = (props: {
 }) => {
     return (
         <a href={props.link}>
-            <div className="border-y-2 border-x-4 border-gray dark:border-gray-800">
+            <div className="article_block">
                 <div className="flex p-2">
                     {props.img ? (
                         <Image

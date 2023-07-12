@@ -32,12 +32,12 @@ export const RecentArticles = () => {
 
   return (
     <div className="w-56 flex-col">
-      <div className="orange_bar_sep">
-        Recent
+      <div className="orange_bar_sep article_block">
+        Recent Posts
       </div>
       {[...headlines].map((entry) => (
         <Link key={entry.id} href={`/blog/${entry.id}`}>
-          <div className="article_preview p-4 ">
+          <div className="article_block italic p-2 ">
             {entry.title.replaceAll("#", "")}
           </div>
         </Link>
