@@ -78,13 +78,6 @@ export const ArticlePreview = (props: ArticleWithUser) => {
     <div>
       <Link href={`/blog/${article.id}`}>
         <div key={article.id} className="article_block">
-          <Image
-            src={author.profilePicture ?? ""}
-            alt="Author Pic"
-            className="m-2 h-16 w-16 rounded-md"
-            width={64}
-            height={64}
-          />
           <div className="m-4 w-full">
             <div className="w-full">
               <span className="whitespace-pre-wrap italic text-slate-400">{`${
@@ -95,10 +88,10 @@ export const ArticlePreview = (props: ArticleWithUser) => {
           </div>
           <span
             id="comment_count"
-            className="me-2 flex items-end hover:text-blue-400"
+            className="me-2 flex items-end"
           >
-            <Link scroll={false} href={`/blog/${article.id}#comment_section`}>
-              <span className="m-2 flex gap-x-1 font-bold ">
+            <Link className="my-2 rounded-xl" scroll={false} href={`/blog/${article.id}#comment_section`}>
+              <span className="p-2 flex w-16 justify-center rounded-xl hover:bg-slate-200 dark:hover:bg-slate-900 gap-x-1 font-bold ">
                 {commentsLoading ? <LoadingSpinner size={20} /> : numComments}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -7,7 +7,7 @@
 }
 
 .article_block {
-  @apply flex transition duration-200 ease-in-out bg-gray-50 dark:bg-[#28282a] hover:bg-white dark:hover:bg-[#3c3c3f] hover:shadow-xl md:text-xl
+  @apply flex transition duration-100 ease-in-out bg-gray-50 dark:bg-[#28282a] hover:bg-white dark:hover:bg-[#3c3c3f] border-gray-200 dark:border-black border-y-2 border-x-4 md:text-xl
 }
 
 .orange_bar_sep {
@@ -64,11 +64,7 @@ h4 {
 
 a {
   @apply transition duration-100 ease-in-out ;
-  @apply dark:bg-[#1c1c1d] dark:text-white dark:transition dark:duration-100 ;
+  @apply  dark:text-white dark:transition dark:duration-100 ;
   @apply hover:bg-white dark:hover:bg-[#4d4d4f] hover:text-orange-600 dark:hover:text-orange-400;
   /* @apply p-1 text-blue-500 hover:text-blue-300 */
-}
-
-svg {
-  @apply dark:fill-slate-200;
 }
