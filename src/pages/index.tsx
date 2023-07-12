@@ -110,7 +110,7 @@ const Home: NextPage = () => {
     return (
         <PageLayout>
             <h1>Blog</h1>
-            <div className="flex-col article">
+            <div className="flex-col">
                 {user && user.email == "blakesavage99@gmail.com" ? (
                     <CreateArticleWizard />
                 ) : (
