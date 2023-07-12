@@ -25,12 +25,12 @@ const ProjectCard = (props: {
                     ) : (
                         <></>
                     )}
-                    <div className="p-2">
-                        <div className="p-2 text-xl font-bold underline">{props.name}</div>
-                        <div className="px-2">{props.desc}</div>
-                        <div className="flex px-6">
+                    <div className="flex-col p-2">
+                        <div className="text-xl font-bold underline">{props.name}</div>
+                        <div>{props.desc}</div>
+                        <div className="flex flex-col md:flex-row">
                             {props.tags ? (
-                                props.tags.map((tag, i) => <li className="mx-6" key={`${i}`}>{tag}</li>)
+                                props.tags.map((tag, i) => <li className="mx-4" key={`${i}`}>{tag}</li>)
                             ) : (
                                 <></>
                             )}
