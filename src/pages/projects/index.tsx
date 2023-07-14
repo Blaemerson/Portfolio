@@ -11,12 +11,11 @@ const ProjectCard = (props: {
 }) => {
     return (
         <a href={props.link}>
-            <div className="article_block">
-                <div className="flex p-2">
+                <div className="article_block p-2">
                     {props.img ? (
                         <Image
                             src={props.img}
-                            className="flex h-32 w-32 items-center justify-center rounded-xl bg-white object-cover p-2"
+                            className="flex h-32 w-32 items-center rounded-xl bg-white object-cover p-2"
                             alt="Your Image"
                             width={300}
                             height={400}
@@ -25,19 +24,20 @@ const ProjectCard = (props: {
                     ) : (
                         <></>
                     )}
-                    <div className="flex-col p-2">
+                <div className="px-1"/>
+                    <div className="flex flex-col">
                         <div className="text-xl font-bold underline">{props.name}</div>
                         <div>{props.desc}</div>
-                        <div className="flex flex-col md:flex-row">
+                        <div className="py-1"/>
+                        <ul className="flex flex-wrap list-disc list-inside">
                             {props.tags ? (
-                                props.tags.map((tag, i) => <li className="mx-4" key={`${i}`}>{tag}</li>)
+                                props.tags.map((tag, i) => <li className="italic px-2" key={`${i}`}>{tag}</li>)
                             ) : (
                                 <></>
                             )}
-                        </div>
+                        </ul>
                     </div>
                 </div>
-            </div>
         </a>
     );
 };
@@ -47,7 +47,7 @@ const Home: NextPage = () => {
         <PageLayout>
             <div>
                 <h1>Projects</h1>
-                <div className="bg-slate-50">
+                <div className="flex-col article">
                     <div className="flex flex-col">
                         <ProjectCard
                             img="/imgs/logo_onionskin_studio.png"
