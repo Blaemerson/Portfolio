@@ -77,6 +77,13 @@ const Home: NextPage = () => {
                             desc="2D platformer imitating Super Mario Bros physics and style"
                             tags={["C++", "SFML"]}
                         />
+                        <ProjectCard
+                            img="/imgs/logo_webgl.png"
+                            link="https://github.com/Blaemerson/js-graphics-programming"
+                            name="WebGL Programming"
+                            desc="5 programs for displaying 2D and 3D graphics, as well as lighting effects"
+                            tags={["Javascript", "WebGL", "HTML"]}
+                        />
                     </div>
                 </div>
             </div>
