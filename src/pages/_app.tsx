@@ -23,13 +23,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Toaster />
-      <div className={`flex ${darkToggle ? 'dark' : ''}`}>
-        <button className={`fixed bottom-8 right-8 rounded-full w-20 h-20 ${!darkToggle ? 'bg-slate-800 text-white' : ''} ${darkToggle ? 'bg-slate-200' : ''}`} onClick={() => setDarkToggle(!darkToggle)}>
-          <div className="p-2 justify-center items-center">
+      <div className={`relative ${darkToggle ? 'dark' : 'light'}`}>
+        <button className={`z-40 absolute md:fixed right-2 top-14 md:left-14 md:top-auto md:bottom-8 rounded-full w-16 h-16 md:w-20 md:h-20 text-s md:text-base ${!darkToggle ? 'bg-slate-800 text-white' : ''} ${darkToggle ? 'bg-slate-200 text-slate-800' : ''}`} onClick={() => setDarkToggle(!darkToggle)}>
+          <div className="justify-center items-center">
             {darkToggle ?
-              "dark"
+              "Light"
               :
-              "light"
+              "Dark"
             }
           </div>
         </button>

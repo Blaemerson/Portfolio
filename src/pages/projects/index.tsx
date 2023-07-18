@@ -11,11 +11,11 @@ const ProjectCard = (props: {
 }) => {
     return (
         <a href={props.link}>
-                <div className="article_block p-2">
+                <div className="article_block sm:p-2 p-1">
                     {props.img ? (
                         <Image
                             src={props.img}
-                            className="flex h-32 w-32 items-center rounded-xl bg-white object-cover p-2"
+                            className="flex sm:h-32 sm:w-32 h-16 w-16 items-center rounded-xl bg-white object-cover sm:p-2"
                             alt="Your Image"
                             width={300}
                             height={400}

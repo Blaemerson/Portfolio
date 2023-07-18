@@ -94,7 +94,7 @@ export const articlesRouter = createTRPCRouter({
     .input(
       z.object({
         title: z.string().min(3).max(255),
-        content: z.string().min(3).max(2000),
+        content: z.string().min(3).max(200000),
       })
     )
     .mutation(async ({ ctx, input }) => {
