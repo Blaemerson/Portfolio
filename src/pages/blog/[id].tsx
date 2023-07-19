@@ -138,13 +138,15 @@ const CreateCommentWizard = ({ articleId }: ArticleIdType) => {
 };
 
 const BlogPostPage: NextPage<{ id: string }> = ({ id }) => {
-    const { data } = api.articles.getArticleById.useQuery({ id });
+    const { data } = api.articles.getArticleByTitle.useQuery({ title: id });
 
     if (!data) return <div> No Data </div>;
+    let pageTitle =data.article.content.split("\n")[0];
+    (pageTitle) ? pageTitle = pageTitle.replaceAll("#", "").trim() : "No Title";
     return (
         <>
             <Head>
-                <title>{data.article.title}</title>
+                <title>{pageTitle}</title>
             </Head>
             <PageLayout>
                 <div className="mt-20">
@@ -172,16 +174,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
         transformer: SuperJSON,
     });
 
-    const id = context.params?.id;
+    const title = context.params?.id;
     console.log("slug");
-    if (typeof id !== "string") throw new Error("no slug");
+    if (typeof title !== "string") throw new Error("no slug");
 
-    await ssg.articles.getArticleById.prefetch({ id });
+    await ssg.articles.getArticleByTitle.prefetch({ title: title });
 
     return {
         props: {
             trpcState: ssg.dehydrate(),
-            id: id,
+            id: title,
         },
     };
 };

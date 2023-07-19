@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 dayjs.extend(relativeTime);
 
 interface Data {
+  slug: string;
   title: string;
   id: string;
 }
@@ -27,7 +28,8 @@ export const RecentArticles = () => {
     );
 
   const headlines: Data[] = data.map((entry) => {
-    return { title: entry.article.title, id: entry.article.id };
+    const articleTitle = entry.article.content.split("\n")[0];
+    return { slug: entry.article.title, title: articleTitle ? articleTitle.replaceAll("#", "").trim() : "No Title", id: entry.article.id };
   });
 
   return (
@@ -36,16 +38,14 @@ export const RecentArticles = () => {
         Recent Posts
       </div>
       {[...headlines].map((entry) => (
-        <Link key={entry.id} href={`/blog/${entry.id}`}>
-          <div className="article_block italic p-2 ">
+        <Link key={entry.id} href={`/blog/${entry.slug}`}>
+          <div className="article_block text-left italic px-2 py-1">
             {entry.title.replaceAll("#", "")}
           </div>
         </Link>
       ))}
     </div>
   );
-
-  return <div className="h-60 w-60 bg-black">Hello there</div>;
 };
 
 type ArticleWithUser = RouterOutputs["articles"]["getAll"][number];
@@ -77,7 +77,7 @@ export const ArticlePreview = (props: ArticleWithUser) => {
 
   return (
     <div>
-      <Link href={`/blog/${article.id}`}>
+      <Link href={`/blog/${article.title}`}>
         <div key={article.id} className="article_block relative z-10"> {/* Add 'relative' class here */}
           <div className="m-2 sm:m-4 w-full">
             <div className="w-full">
