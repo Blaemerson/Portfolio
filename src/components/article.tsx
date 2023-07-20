@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 dayjs.extend(relativeTime);
 
 interface Data {
+  slug: string;
   title: string;
   id: string;
 }
@@ -27,7 +28,8 @@ export const RecentArticles = () => {
     );
 
   const headlines: Data[] = data.map((entry) => {
-    return { title: entry.article.title, id: entry.article.id };
+    const articleTitle = entry.article.content.split("\n")[0];
+    return { slug: entry.article.title, title: articleTitle ? articleTitle.replaceAll("#", "").trim() : "No Title", id: entry.article.id };
   });
 
   return (
@@ -36,8 +38,8 @@ export const RecentArticles = () => {
         Recent Posts
       </div>
       {[...headlines].map((entry) => (
-        <Link key={entry.id} href={`/blog/${entry.id}`}>
-          <div className="article_block italic p-2 ">
+        <Link key={entry.id} href={`/blog/${entry.slug}`}>
+          <div className="article_block text-left italic px-2 py-1">
             {entry.title.replaceAll("#", "")}
           </div>
         </Link>
@@ -71,43 +73,49 @@ export const ArticlePreview = (props: ArticleWithUser) => {
   });
   const user = useSession().data?.user;
 
-  const preview = article.content.split("\n").slice(0, 3).join("\n");
+  const preview: string = article.content.split("\n").slice(0, 3).join("\n");
+
   return (
     <div>
-      <Link href={`/blog/${article.id}`}>
-        <div key={article.id} className="article_block">
-          <div className="m-4 w-full">
+      <Link href={`/blog/${article.title}`}>
+        <div key={article.id} className="article_block relative z-10"> {/* Add 'relative' class here */}
+          <div className="m-2 sm:m-4 w-full">
             <div className="w-full">
-              <span className="whitespace-pre-wrap italic text-slate-400">{`${dayjs(article.createdAt).fromNow()}`}</span>
+              <span className="whitespace-pre-wrap italic text-slate-400">
+                {`Posted ${dayjs(article.createdAt).fromNow()}`}
+              </span>
             </div>
             <ReactMarkdown>{`${preview}`}</ReactMarkdown>
+            <div className="my-6"></div>
+            <span id="comment_count" className="absolute bottom-2 right-2"> {/* Add 'absolute' and positioning classes here */}
+              <Link
+                className="rounded-xl"
+                scroll={false}
+                href={`/blog/${article.id}#comment_section`}
+              >
+                <span className="p-0 flex w-16 justify-center rounded-xl hover:bg-slate-200 dark:hover:bg-slate-900 gap-x-1 font-bold">
+                  {commentsLoading ? <LoadingSpinner size={20} /> : numComments}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5" // Use 'strokeWidth' instead of 'stroke-width'
+                    stroke="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+                    />
+                  </svg>
+                </span>
+              </Link>
+            </span>
           </div>
-          <span
-            id="comment_count"
-            className="me-2 flex items-end"
-          >
-            <Link className="my-2 rounded-xl" scroll={false} href={`/blog/${article.id}#comment_section`}>
-              <span className="p-2 flex w-16 justify-center rounded-xl hover:bg-slate-200 dark:hover:bg-slate-900 gap-x-1 font-bold ">
-                {commentsLoading ? <LoadingSpinner size={20} /> : numComments}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
-                  />
-                </svg>
-              </span>
-            </Link>
-          </span>
         </div>
       </Link>
+
       {user && user.email == "blakesavage99@gmail.com" ? (
         <div className="m-4 flex flex-col items-center justify-center">
           <button
@@ -137,9 +145,8 @@ export const Article = (props: ArticleWithUser) => {
       <div className="flex items-center">
         <div className="flex flex-col">
           <div className="flex">
-            <span className="justify-center pb-4 italic">{`Author: ${
-              props.author.name ?? "name"
-            }`}</span>
+            <span className="justify-center pb-4 italic">{`Author: ${props.author.name ?? "name"
+              }`}</span>
             <span className="whitespace-pre-wrap italic">{` - ${dayjs(
               props.article.createdAt
             ).fromNow()}`}</span>

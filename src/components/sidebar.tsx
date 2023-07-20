@@ -6,7 +6,7 @@ export const TopBar = () => {
   return (
     <>
       <div
-        className="fixed left-0 top-0 right-0 flex items-center justify-center bg-gray-50 dark:bg-[#1e1e22] w-screen translate-y-0 transition-transform md:-translate-y-full"
+        className="topbar"
       >
         <div className="grid grid-cols-5 ">
           <Link
@@ -55,10 +55,10 @@ export const SideBar = () => {
     <>
       <aside
         id="default-sidebar"
-        className="fixed left-0 top-0 z-40 h-screen w-48 -translate-x-full transition-transform md:translate-x-0"
+        className="sidebar"
         aria-label="Sidebar"
       >
-        <div className="h-full overflow-y-auto bg-gray-50 px-3 py-4 dark:bg-[#1e1e22]">
+        <div className="h-full overflow-y-auto bg-zinc-100 px-3 py-4 dark:bg-[#1e1e22]">
           <ul className="space-y-2 font-medium">
             <li>
               <Link
@@ -73,9 +73,9 @@ export const SideBar = () => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
 

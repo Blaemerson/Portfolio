@@ -79,8 +79,18 @@ export const articlesRouter = createTRPCRouter({
           message: "Article not found",
         });
       }
+      const users = await ctx.prisma.user
+        .findMany({ take: 100 })
+        .then((users) => users.map(filterUserForClient));
 
-      return article;
+      const author = users.find((user) => user.id === article.author_id);
+      if (!author)
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Author for article not found",
+        });
+
+      return {article, author};
     }),
 
   delete: protectedProcedure
@@ -94,7 +104,7 @@ export const articlesRouter = createTRPCRouter({
     .input(
       z.object({
         title: z.string().min(3).max(255),
-        content: z.string().min(3).max(2000),
+        content: z.string().min(3).max(200000),
       })
     )
     .mutation(async ({ ctx, input }) => {
