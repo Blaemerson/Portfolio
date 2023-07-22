@@ -13,7 +13,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-  const [darkToggle, setDarkToggle] = useState(false)
+  const [darkToggle, setDarkToggle] = useState(true)
 
   return (
     <SessionProvider session={session}>
