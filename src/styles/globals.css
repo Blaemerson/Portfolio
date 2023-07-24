@@ -2,33 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.article {
-  @apply text-base flex sm:text-xl w-full dark:bg-[#2b2c2f] bg-white p-4  sm:mt-0
-}
-
-.article_block {
-  @apply flex transition duration-100 ease-in-out bg-zinc-100 dark:bg-[#28282a] hover:bg-white dark:hover:bg-[#3c3c3f] border-gray-200 dark:border-gray-900 border-y-2 border-x-4 md:text-xl
-}
-
-.orange_bar_sep {
-  @apply flex h-10 items-center justify-center bg-gradient-to-b from-orange-400 from-10% via-orange-500 via-80% to-orange-500 text-xl font-bold text-slate-800 dark:bg-orange-600
-}
-
-.article_preview {
-  @apply flex transition font-bold duration-200 ease-in-out bg-gray-50 dark:bg-[#28282a] hover:bg-gray-100 dark:hover:bg-[#3c3c3f] hover:shadow-xl md:text-xl
-}
-
-.topbar {
-  @apply z-20 absolute md:fixed left-0 top-0 right-0 flex items-center justify-center bg-zinc-200 dark:bg-[#1e1e22] w-screen translate-y-0 transition-transform md:-translate-y-full
-}
-
-.sidebar {
-  @apply z-20 fixed left-0 top-0 h-screen w-48 -translate-x-full transition-transform md:translate-x-0
-}
-
-.theme_toggle {
-  @apply z-40 absolute md:fixed right-4 top-14 md:left-14 md:bottom-8 rounded-full w-20 h-20
-}
 
 :root {
   --clr-bg-dark: #1f2937; /* gray-800 */
@@ -46,6 +19,34 @@
 .light {
   background-color: var(--clr-bg-light);
   color: var(--clr-text-light);
+}
+
+.article {
+  @apply text-base flex sm:text-xl w-full dark:bg-[#2b2c2f] bg-white p-4  sm:mt-0
+}
+
+.article_block {
+  @apply flex transition duration-100 ease-in-out bg-zinc-100 dark:bg-[#28282a] hover:bg-white dark:hover:bg-[#3c3c3f] border-gray-200 dark:border-gray-900 border-y-2 border-x-4 md:text-xl
+}
+
+.orange_bar_sep {
+  @apply flex m-1 h-10 items-center justify-center bg-gradient-to-b from-orange-300 from-10% via-orange-400 via-80% to-orange-400 text-xl font-bold text-slate-800
+}
+
+.article_preview {
+  @apply flex transition font-bold duration-200 ease-in-out bg-gray-50 dark:bg-[#28282a] hover:bg-gray-100 dark:hover:bg-[#3c3c3f] hover:shadow-xl md:text-xl
+}
+
+.topbar {
+  @apply z-20 absolute md:fixed left-0 top-0 right-0 flex items-center justify-center bg-zinc-200 dark:bg-[#1e1e22] w-screen translate-y-0 transition-transform md:-translate-y-full
+}
+
+.sidebar {
+  @apply z-20 fixed left-0 top-0 h-screen w-48 -translate-x-full transition-transform md:translate-x-0
+}
+
+.theme_toggle {
+  @apply z-40 absolute md:fixed right-4 top-14 md:left-14 md:bottom-8 rounded-full w-20 h-20
 }
 
 h1 {

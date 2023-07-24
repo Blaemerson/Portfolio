@@ -34,7 +34,7 @@ export const RecentArticles = () => {
 
   return (
     <div className="w-56 flex-col">
-      <div className="orange_bar_sep article_block">
+      <div className="orange_bar_sep">
         Recent Posts
       </div>
       {[...headlines].map((entry) => (
