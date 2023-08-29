@@ -141,7 +141,7 @@ const BlogPostPage: NextPage<{ id: string }> = ({ id }) => {
     const { data } = api.articles.getArticleByTitle.useQuery({ title: id });
 
     if (!data) return <div> No Data </div>;
-    let pageTitle =data.article.content.split("\n")[0];
+    let pageTitle = data.article.content.split("\n")[0];
     (pageTitle) ? pageTitle = pageTitle.replaceAll("#", "").trim() : "No Title";
     return (
         <>

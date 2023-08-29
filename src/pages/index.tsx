@@ -70,7 +70,7 @@ const CreateArticleWizard = () => {
             onClick={() => {
               let title = input.split("\n")[0];
               if (title) {
-                title = title.replaceAll("#", "").trim().replaceAll(" ", "-").toLowerCase()
+                title = title.replaceAll("#", "").trim().replace(/\W+/g, "-").toLowerCase()
                 return mutate({ content: input, title: title });
               }
             }
