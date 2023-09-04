@@ -29,7 +29,7 @@ export const RecentArticles = () => {
 
   const headlines: Data[] = data.map((entry) => {
     const articleTitle = entry.article.content.split("\n")[0];
-    return { slug: entry.article.title, title: articleTitle ? articleTitle.replaceAll("#", "").trim() : "No Title", id: entry.article.id };
+    return { slug: entry.article.title, title: articleTitle ? articleTitle.trim().replace(/\W+/g, " ").trim() : "No Title", id: entry.article.id };
   });
 
   return (

@@ -78,6 +78,13 @@ const Home: NextPage = () => {
                             tags={["C++", "SFML"]}
                         />
                         <ProjectCard
+                            img="/imgs/wordtris.png"
+                            link="https://github.com/Blaemerson/Wordtris_C"
+                            name="Wordtris"
+                            desc="A Tetris-style word puzzler where the aim is to spell as many words as possible."
+                            tags={["C", "Raylib"]}
+                        />
+                        <ProjectCard
                             img="/imgs/logo_webgl.png"
                             link="https://github.com/Blaemerson/js-graphics-programming"
                             name="WebGL Programming"

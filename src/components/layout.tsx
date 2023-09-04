@@ -10,8 +10,13 @@ export const PageLayout = (props: PropsWithChildren) => {
                 <TopBar />
                 <SideBar />
             </div>
-            <div className="flex min-h-screen w-screen justify-center sm:px-8 px-1 py-12 md:ps-56 md:pt-0 sm:text-justify">
-                <div className="w-full xl:w-2/3">{props.children}</div>
+            <div className="flex min-h-screen justify-center sm:text-justify">
+                <div className="md:ms-60"></div>
+                <div className="my-8 sm:my-0">{props.children}</div>
+                <div className="xl:me-64 md:me-8"></div>
+                <div className="z-20 fixed right-24 top-8 w-36 translate-x-full invisible xl:visible transition-transform md:translate-x-0">
+                  <RecentArticles />
+                </div>
             </div>
         </main>
     );
